@@ -87,7 +87,6 @@ namespace FreeFiles.TransferEngine.WCFPNRP
 
                 }
                 return foundPeers;
-               
             }
             catch (PeerToPeerException px)
             {
