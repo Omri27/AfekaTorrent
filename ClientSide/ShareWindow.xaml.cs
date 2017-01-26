@@ -102,21 +102,26 @@ namespace ClientSide
         private void saveFile(List<Tuple<FileTransferManager.DownloadParameter, byte[]>> data)
         {
             //CheckForIllegalCrossThreadCalls = false;
-            var lst = data.OrderBy(x => x.Item1.Part).ToList();
-            var bytes = new List<byte>();
-            for (int i = 0; i < lst.Count; i++)
+
+            Dispatcher.Invoke(new Action(() =>
             {
-                bytes.AddRange(lst[i].Item2);
-            }
-            var dialog = new SaveFileDialog();
-            dialog.FileName = System.IO.Path.GetFileNameWithoutExtension(data[0].Item1.FileSearchResult.FileName);
-            dialog.DefaultExt = data[0].Item1.FileSearchResult.FileType;
-            dialog.ShowDialog(this);
-            if (!string.IsNullOrEmpty(dialog.FileName))
-            {
-                File.WriteAllBytes(dialog.FileName, bytes.ToArray());
-            }
-            MessageBox.Show(this, "File saved!");
+                var lst = data.OrderBy(x => x.Item1.Part).ToList();
+                var bytes = new List<byte>();
+                for (int i = 0; i < lst.Count; i++)
+                {
+                    bytes.AddRange(lst[i].Item2);
+                }
+                var dialog = new SaveFileDialog();
+                dialog.FileName = System.IO.Path.GetFileNameWithoutExtension(data[0].Item1.FileSearchResult.FileName);
+                dialog.DefaultExt = data[0].Item1.FileSearchResult.FileType;
+                dialog.ShowDialog(this);
+                if (!string.IsNullOrEmpty(dialog.FileName))
+                {
+                    File.WriteAllBytes(dialog.FileName, bytes.ToArray());
+                }
+                MessageBox.Show(this, "File saved!");
+            }));
+           
         }
 
 
