@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FreeFile.DownloadManager;
 using FreeFiles.TransferEngine.WCFPNRP;
+using Microsoft.Win32;
+using System.IO;
 
 namespace ClientSide
 {
@@ -31,18 +33,18 @@ namespace ClientSide
         {
 
             fileTransferManager = new FileTransferManager();
-            //fileTransferManager.FilePartDownloaded += fileTransferManager_FilePartDownloaded;
+            fileTransferManager.FilePartDownloaded += fileTransferManager_FilePartDownloaded;
         }
 
-        //void fileTransferManager_FilePartDownloaded(object sender, DataContainerEventArg<FileTransferManager.FilePartData> e)
-        //{
-        //    List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>> data = new List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>>();
-        //    data.Add(new Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>(e.Data.DownloadParameter, e.Data.FileBytes));
-        //    if (e.Data.DownloadParameter.AllPartsCount == e.Data.DownloadParameter.Part)
-        //    {
-        //        //saveFile(data);
-        //    }
-        //}
+        void fileTransferManager_FilePartDownloaded(object sender, DataContainerEventArg<FileTransferManager.FilePartData> e)
+        {
+            List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>> data = new List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>>();
+            data.Add(new Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>(e.Data.DownloadParameter, e.Data.FileBytes));
+            if (e.Data.DownloadParameter.AllPartsCount == e.Data.DownloadParameter.Part)
+            {
+                saveFile(data);
+            }
+        }
 
         private void search_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -60,25 +62,62 @@ namespace ClientSide
             }
         }
 
-        //private void saveFile(List<Tuple<FileTransferManager.DownloadParameter, byte[]>> data)
-        //{
-        //    CheckForIllegalCrossThreadCalls = false;
-        //    var lst = data.OrderBy(x => x.Item1.Part).ToList();
-        //    var bytes = new List<byte>();
-        //    for (int i = 0; i < lst.Count; i++)
-        //    {
-        //        bytes.AddRange(lst[i].Item2);
-        //    }
-        //    var dialog = new SaveFileDialog();
-        //    dialog.FileName = Path.GetFileNameWithoutExtension(data[0].Item1.FileSearchResult.FileName);
-        //    dialog.DefaultExt = data[0].Item1.FileSearchResult.FileType;
-        //    dialog.ShowDialog(this);
-        //    if (!string.IsNullOrEmpty(dialog.FileName))
-        //    {
-        //        File.WriteAllBytes(dialog.FileName, bytes.ToArray());
-        //    }
-        //    MessageBox.Show(this, "File saved!");
-        //}
+        private void shareBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            //DialogResult result = openFileDialog1.ShowDialog();
+            if (openFileDialog1.ShowDialog() == true)
+            {
+                //
+                // The user selected a folder and pressed the OK button.
+                // We print the number of files found.
+                //
+                List<Entities.File> addedFiles = new List<Entities.File>();
+                Entities.Peer peerType = new Entities.Peer();
+
+                Entities.File FileType = new Entities.File();
+                FileInfo fInfo = new FileInfo(openFileDialog1.FileName);
+                FileType.FileName = openFileDialog1.FileName;
+                FileType.FileSize = (int)fInfo.Length;
+                FileType.FileType = System.IO.Path.GetExtension(openFileDialog1.FileName);
+                FileType.PeerHostName = Config.LocalHostyName;
+                peerType.PeerID = FileType.PeerID = Guid.NewGuid();
+                addedFiles.Add(FileType);
+
+
+                peerType.PeerHostName = Config.LocalHostyName;
+                fileTransferManager.AddFiles(addedFiles, peerType);
+                MessageBox.Show("Files Added!");
+            }
+        }
+
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Entities.File fileSearchResult = dataGrid.SelectedItem as Entities.File;
+            this.fileTransferManager.Download(fileSearchResult);
+        }
+
+
+
+        private void saveFile(List<Tuple<FileTransferManager.DownloadParameter, byte[]>> data)
+        {
+            //CheckForIllegalCrossThreadCalls = false;
+            var lst = data.OrderBy(x => x.Item1.Part).ToList();
+            var bytes = new List<byte>();
+            for (int i = 0; i < lst.Count; i++)
+            {
+                bytes.AddRange(lst[i].Item2);
+            }
+            var dialog = new SaveFileDialog();
+            dialog.FileName = System.IO.Path.GetFileNameWithoutExtension(data[0].Item1.FileSearchResult.FileName);
+            dialog.DefaultExt = data[0].Item1.FileSearchResult.FileType;
+            dialog.ShowDialog(this);
+            if (!string.IsNullOrEmpty(dialog.FileName))
+            {
+                File.WriteAllBytes(dialog.FileName, bytes.ToArray());
+            }
+            MessageBox.Show(this, "File saved!");
+        }
 
 
     }

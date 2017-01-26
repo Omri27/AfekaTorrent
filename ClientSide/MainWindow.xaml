@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="153,74,0,0" VerticalAlignment="Top" Width="123"/>
+        <PasswordBox x:Name="passwordBox" HorizontalAlignment="Left" Margin="156,74,0,0" VerticalAlignment="Top" Width="120" Height="18"/>
         <Label x:Name="label" Content="Password:" HorizontalAlignment="Left" Margin="31,66,0,0" VerticalAlignment="Top" Width="104"/>
         <Label x:Name="label_Copy" Content="User Name:" HorizontalAlignment="Left" Margin="31,25,0,0" VerticalAlignment="Top" Width="104"/>
-        <TextBox x:Name="UserName_textBox" HorizontalAlignment="Left" Height="23" Margin="156,29,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.492,0.609"/>
+        <TextBox x:Name="UserName_textBox" HorizontalAlignment="Left" Height="22" Margin="156,29,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.492,0.609"/>
         <Label x:Name="label1" Content="Server Ip Address" HorizontalAlignment="Left" Margin="31,115,0,0" VerticalAlignment="Top" Width="118"/>
         <TextBox x:Name="ServerAddress_textBox" HorizontalAlignment="Left" Height="23" Margin="156,118,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.492,0.609"/>
         <Label x:Name="label1_Copy" Content="Download Folder:" HorizontalAlignment="Left" Margin="31,192,0,0" VerticalAlignment="Top" Width="118"/>

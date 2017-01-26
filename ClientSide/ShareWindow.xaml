@@ -5,19 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientSide"
         mc:Ignorable="d"
-        Title="ShareWindow" Height="600
-        " Width="600"
+        Title="ShareWindow" Height="600" Width="600"
         Loaded="ShareWindow_Load">
-    <Grid Margin="0,0,2,3" HorizontalAlignment="Right" Width="590">
+    <Grid Margin="0,0,2,-8" HorizontalAlignment="Right" Width="600" Height="400">
         <Grid.RowDefinitions>
-            <RowDefinition Height="288*"/>
-            <RowDefinition Height="281*"/>
+            <RowDefinition Height="53*"/>
+            <RowDefinition Height="182*"/>
+            <RowDefinition Height="221*"/>
+            <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="0,57,-2,0" AutoGenerateColumns="True" VerticalAlignment="Top" Height="389" Width="592" Grid.RowSpan="2" >
-        </DataGrid>
-        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="57" Stroke="Black" VerticalAlignment="Top" Width="592"/>
-        <TextBox x:Name="search_TextBox" HorizontalAlignment="Left" Height="23" Margin="114,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="search_TextBox_TextChanged"/>
-        <Label x:Name="label" Content="File Search:&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,7,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.039,0.25" Width="99" Height="26"/>
-        <Button x:Name="search_Button" Content="Search" HorizontalAlignment="Left" Margin="260,13,0,0" VerticalAlignment="Top" Width="76" Click="search_Button_Click"/>
+        <DataGrid x:Name="dataGrid" IsReadOnly="True" HorizontalAlignment="Left" Margin="10,-42,-2,0" AutoGenerateColumns="True" Width="592" Grid.RowSpan="3" Height="371" VerticalAlignment="Top" SelectionChanged="dataGrid_SelectionChanged" />
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="44" Stroke="Black" VerticalAlignment="Top" Width="592" Margin="10,-86,-2,0"/>
+        <TextBox x:Name="search_TextBox" HorizontalAlignment="Left" Height="23" Margin="120,-75,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="search_TextBox_TextChanged"/>
+        <Label x:Name="label" Content="File Search:&#xD;&#xA;" HorizontalAlignment="Left" Margin="16,-78,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.039,0.25" Width="99" Height="26"/>
+        <Button x:Name="search_Button" Content="Search" HorizontalAlignment="Left" Margin="266,-72,0,0" VerticalAlignment="Top" Width="76" Click="search_Button_Click" Height="20"/>
+        <Button x:Name="shareBtn" Content="Share File&#xD;&#xA;" HorizontalAlignment="Left" Height="20" Margin="10,18,0,-30" Grid.Row="3" VerticalAlignment="Top" Width="75" Click="shareBtn_Click"/>
     </Grid>
 </Window>
