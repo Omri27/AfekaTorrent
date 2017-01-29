@@ -38,6 +38,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -115,6 +117,10 @@
     <ProjectReference Include="..\FreeFiles.TransferEngine.WCFPNRP\FreeFiles.TransferEngine.WCFPNRP.csproj">
       <Project>{4374a8e0-988e-4df0-ac9d-0af0fa8b0fdb}</Project>
       <Name>FreeFiles.TransferEngine.WCFPNRP</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FreeFilesServerConsole\FreeFilesServerConsole.csproj">
+      <Project>{D830EBC2-14AD-4CBA-B539-A1FC38DEB4D9}</Project>
+      <Name>FreeFilesServerConsole</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -15,6 +15,9 @@ using FreeFile.DownloadManager;
 using FreeFiles.TransferEngine.WCFPNRP;
 using Microsoft.Win32;
 using System.IO;
+using FreeFilesServerConsole.WCFServices;
+using FreeFile.DownloadManager.UserServer;
+using FreeFile.DownloadManager.FileServer;
 
 namespace ClientSide
 {
@@ -31,9 +34,24 @@ namespace ClientSide
         }
         private void ShareWindow_Load(object sender, RoutedEventArgs e)
         {
-
+            
             fileTransferManager = new FileTransferManager();
             fileTransferManager.FilePartDownloaded += fileTransferManager_FilePartDownloaded;
+
+            FilesServiceClient fsc = new FilesServiceClient();
+            List<Entities.File> fileList = new List<Entities.File>();
+            foreach(Entities.File file in fsc.GetAllFiles())
+            {
+                Entities.File currentFile = new Entities.File();
+                currentFile.FileName = file.FileName;
+                currentFile.FileSize = file.FileSize;
+                currentFile.FileType = file.FileType;
+                currentFile.PeerID = file.PeerID;
+                currentFile.PeerHostName = file.PeerHostName;
+                fileList.Add(currentFile);
+            }
+            dataGrid.ItemsSource = fileList;
+            dataGrid.DataContext = fileList;
         }
 
         void fileTransferManager_FilePartDownloaded(object sender, DataContainerEventArg<FileTransferManager.FilePartData> e)
@@ -48,7 +66,7 @@ namespace ClientSide
 
         private void search_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+           
         }
 
         private void search_Button_Click(object sender, RoutedEventArgs e)
@@ -64,6 +82,15 @@ namespace ClientSide
 
         private void shareBtn_Click(object sender, RoutedEventArgs e)
         {
+            Entities.User User = new Entities.User();
+            User.UserID = Guid.NewGuid();
+            User.UserName = "Omri";
+            User.Password = "12345";
+            User.DownloadFolder = "cunt";
+            User.SharedFolder = "cunt";
+            UserServiceClient service = new UserServiceClient();
+            service.AddUser(User);
+
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             //DialogResult result = openFileDialog1.ShowDialog();
             if (openFileDialog1.ShowDialog() == true)
@@ -117,7 +144,7 @@ namespace ClientSide
                 dialog.ShowDialog(this);
                 if (!string.IsNullOrEmpty(dialog.FileName))
                 {
-                    File.WriteAllBytes(dialog.FileName, bytes.ToArray());
+                    System.IO.File.WriteAllBytes(dialog.FileName, bytes.ToArray());
                 }
                 MessageBox.Show(this, "File saved!");
             }));

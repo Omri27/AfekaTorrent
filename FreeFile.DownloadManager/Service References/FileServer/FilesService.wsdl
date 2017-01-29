@@ -26,6 +26,12 @@
   <wsdl:message name="FilesService_SearchAvaiableFiles_OutputMessage">
     <wsdl:part name="parameters" element="tns:SearchAvaiableFilesResponse" />
   </wsdl:message>
+  <wsdl:message name="FilesService_GetAllFiles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllFiles" />
+  </wsdl:message>
+  <wsdl:message name="FilesService_GetAllFiles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllFilesResponse" />
+  </wsdl:message>
   <wsdl:portType name="FilesService">
     <wsdl:operation name="AddFiles">
       <wsdl:input wsaw:Action="http://tempuri.org/FilesService/AddFiles" message="tns:FilesService_AddFiles_InputMessage" />
@@ -38,6 +44,10 @@
     <wsdl:operation name="SearchAvaiableFiles">
       <wsdl:input wsaw:Action="http://tempuri.org/FilesService/SearchAvaiableFiles" message="tns:FilesService_SearchAvaiableFiles_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/FilesService/SearchAvaiableFilesResponse" message="tns:FilesService_SearchAvaiableFiles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllFiles">
+      <wsdl:input wsaw:Action="http://tempuri.org/FilesService/GetAllFiles" message="tns:FilesService_GetAllFiles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/FilesService/GetAllFilesResponse" message="tns:FilesService_GetAllFiles_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_FilesService" type="tns:FilesService">
@@ -62,6 +72,15 @@
     </wsdl:operation>
     <wsdl:operation name="SearchAvaiableFiles">
       <soap:operation soapAction="http://tempuri.org/FilesService/SearchAvaiableFiles" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllFiles">
+      <soap:operation soapAction="http://tempuri.org/FilesService/GetAllFiles" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
