@@ -7,6 +7,6 @@ namespace FreeFilesServerConsole.Repository
 {
     public interface IUserRepository
     {
-        void AddUser(EF.User user);
+        void AddUser(FreeFilesServerConsole.EF.User user);
     }
 }

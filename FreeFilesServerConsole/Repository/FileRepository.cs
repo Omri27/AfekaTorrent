@@ -66,5 +66,24 @@ namespace FreeFilesServerConsole.EF.Repository
         {
             _freeFilesObjectContext.Save();            
         }
+
+        public List<File> GetAllFiles()
+        {
+            var filesList = from files in _freeFilesObjectContext.Files
+                            join peers in _freeFilesObjectContext.Peers on files.PeerID equals peers.PeerID
+                            select new { files, peers };
+            List<FreeFilesServerConsole.EF.File> List = new List<File>();
+            foreach (var item in filesList)
+            {
+                File file = new File();
+                file.FileName = item.files.FileName;
+                file.FileSize = item.files.FileSize;
+                file.FileType = item.files.FileType;
+                file.PeerHostName = item.peers.PeerHostName;
+                file.PeerID = item.peers.PeerID;
+                List.Add(file);
+            }
+            return List;
+        }
     }
 }

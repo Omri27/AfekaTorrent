@@ -8,15 +8,35 @@ using FreeFilesServerConsole.EF;
 using FreeFilesServerConsole.Repository;
 namespace FreeFilesServerConsole.WCFServices
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "UserService" in both code and config file together.
+    [ServiceContract]
     public class UserService : IUserService
     {
         private FreeFilesEntitiesContext _freeFilesObjectContext = new FreeFilesEntitiesContext();
 
-        public void AddUser(User user)
+        [OperationContract]
+        public void AddUser(Entities.User user)
         {
             UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
-            userRepository.AddUser(user);
+
+            userRepository.AddUser(externalUserToEFUser(user));
+
+            SaveUser();
+        }
+
+        public void SaveUser()
+        {
+            _freeFilesObjectContext.Save();
+        }
+
+        private EF.User externalUserToEFUser(Entities.User user)
+        {
+            EF.User EFUser = new EF.User();
+            EFUser.UserID = user.UserID;
+            EFUser.Password = user.Password;
+            EFUser.SharedFolder = user.SharedFolder;
+            EFUser.DownloadFolder = user.DownloadFolder;
+            EFUser.UserName = user.UserName;
+            return EFUser;
         }
     }
 }

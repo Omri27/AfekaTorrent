@@ -13,10 +13,10 @@ namespace FreeFilesServerConsole.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FreeFilesEntities : DbContext
+    public partial class FreeFilesEntities1 : DbContext
     {
-        public FreeFilesEntities()
-            : base("name=FreeFilesEntities")
+        public FreeFilesEntities1()
+            : base("name=FreeFilesEntities1")
         {
         }
     
@@ -28,5 +28,6 @@ namespace FreeFilesServerConsole.EF
         public DbSet<File> Files { get; set; }
         public DbSet<Peer> Peers { get; set; }
         public DbSet<sysdiagram> sysdiagrams { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }

@@ -12,15 +12,12 @@ namespace FreeFilesServerConsole.EF
     using System;
     using System.Collections.Generic;
     
-    public partial class File
+    public partial class User
     {
-        public System.Guid FileID { get; set; }
-        public string FileName { get; set; }
-        public System.Guid PeerID { get; set; }
-        public int FileSize { get; set; }
-        public string FileType { get; set; }
-        public string PeerHostName { get; set; }
-    
-        public virtual Peer Peer { get; set; }
+        public System.Guid UserID { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string SharedFolder { get; set; }
+        public string DownloadFolder { get; set; }
     }
 }

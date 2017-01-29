@@ -11,5 +11,6 @@ namespace FreeFilesServerConsole.WCFServices
     {
         void AddFiles(List<FreeFilesServerConsole.EF.File> FilesList,Peer Peer);
         List<FreeFilesServerConsole.EF.File> SearchAvaiableFiles(string fileName);
+        List<Entities.File> GetAllFiles();
     }
 }

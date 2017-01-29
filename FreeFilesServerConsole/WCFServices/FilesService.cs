@@ -35,6 +35,14 @@ namespace FreeFilesServerConsole.WCFServices
             FileRepository fileRepository = new FileRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
             return internalFileToEntityFile(fileRepository.SearchAvaiableFiles(fileName));
         }
+        [OperationContract]
+        public List<Entities.File> GetAllFiles()
+        {
+            FileRepository fileRepository = new FileRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
+            return internalFileToEntityFile(fileRepository.GetAllFiles());
+        }
+
+
 
         public void SaveFile()
         {

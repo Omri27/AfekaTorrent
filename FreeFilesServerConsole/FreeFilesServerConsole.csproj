@@ -26,7 +26,6 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -91,6 +90,9 @@
       <DependentUpon>FilesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\sysdiagram.cs">
+      <DependentUpon>FilesModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\User.cs">
       <DependentUpon>FilesModel.tt</DependentUpon>
     </Compile>
     <Compile Include="IUnitOfWork.cs" />

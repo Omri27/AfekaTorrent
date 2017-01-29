@@ -9,6 +9,7 @@
         <EntityTypeShape EntityType="FreeFilesModel.Peer" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
         <AssociationConnector Association="FreeFilesModel.FK_Files_Peers" ManuallyRouted="false" />
         <EntityTypeShape EntityType="FreeFilesModel.sysdiagram" Width="1.5" PointX="10.426096468430989" PointY="13.530650636894" />
+        <EntityTypeShape EntityType="FreeFilesModel.User" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

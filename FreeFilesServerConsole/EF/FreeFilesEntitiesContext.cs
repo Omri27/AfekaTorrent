@@ -9,11 +9,13 @@ namespace FreeFilesServerConsole.EF
     {
         private ObjectSet<FreeFilesServerConsole.EF.File> _files;
         private ObjectSet<FreeFilesServerConsole.EF.Peer> _peers;
+        private ObjectSet<FreeFilesServerConsole.EF.User> _users;
         public FreeFilesEntitiesContext()
             : base("name=FreeFilesEntities", "FreeFilesEntities1")
         {
             _files = CreateObjectSet<FreeFilesServerConsole.EF.File>();
             _peers = CreateObjectSet<FreeFilesServerConsole.EF.Peer>();
+            _users = CreateObjectSet<FreeFilesServerConsole.EF.User>();
         }
 
         public ObjectSet<FreeFilesServerConsole.EF.File> Files
@@ -24,6 +26,10 @@ namespace FreeFilesServerConsole.EF
         public ObjectSet<FreeFilesServerConsole.EF.Peer> Peers
         {
             get { return _peers; }
+        }
+        public ObjectSet<FreeFilesServerConsole.EF.User> Users
+        {
+            get { return _users; }
         }
 
         public void Save()

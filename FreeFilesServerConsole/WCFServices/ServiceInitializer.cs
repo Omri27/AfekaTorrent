@@ -14,9 +14,11 @@ namespace FreeFilesServerConsole.WCFServices
     public class ServiceInitializer : IServiceInitializer
     {
         private string _endPointAddress = string.Empty;
+        private string _userEndPointAddress = string.Empty;
         public ServiceInitializer()
         {
             _endPointAddress = ConfigurationSettings.AppSettings["FileServiceEndPointAddress"].ToString();
+            _userEndPointAddress = ConfigurationSettings.AppSettings["UserServiceEndPointAddress"].ToString();
         }
         public void InitializeServiceHost()
         {
@@ -24,35 +26,24 @@ namespace FreeFilesServerConsole.WCFServices
             Uri[] baseAddresses = new Uri[]{
                 new Uri(_endPointAddress),
             };
+            Uri[] userBaseAddresses = new Uri[]{
+                new Uri(_userEndPointAddress),
+            };
             ServiceHost Host = new ServiceHost(typeof(FilesService),baseAddresses);
+            ServiceHost UserHost = new ServiceHost(typeof(UserService), userBaseAddresses);
 
             Host.AddServiceEndpoint(typeof(FilesService),
-                new BasicHttpBinding(),"");
+                new BasicHttpBinding(), "");
+            UserHost.AddServiceEndpoint(typeof(UserService),
+                new BasicHttpBinding(), "");
             ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
             smb.HttpGetEnabled = true;
             Host.Description.Behaviors.Add(smb);
             Host.Open();
+            UserHost.Description.Behaviors.Add(smb);
+            UserHost.Open();
         }
     }
 
-    public class FileServiceAttributes : Attribute
-    {
-        public FileServiceAttributes(Type ImplementedContract, string ServiceAddress)
-        {
-            this.ImplementedContract = ImplementedContract;
-            this.ServiceAddress=ServiceAddress;
-        }
-        
-        public Type ImplementedContract { get; set; }
-        public Type ImplemenetdBinding { get; set; }
-        public string ServiceAddress { get; set; }
-
-        public static FileServiceAttributes FileServiceAttributeInit()
-        {
-            Type type = typeof(IServiceInitializer);
-            object[] attributes = type.GetCustomAttributes(
-            typeof(FileServiceAttributes), true);
-            return attributes[0] as FileServiceAttributes;
-        }
-    }
+    
 }
