@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientSide", "ClientSide\Cl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeFilesServerConsole", "FreeFilesServerConsole\FreeFilesServerConsole.csproj", "{D830EBC2-14AD-4CBA-B539-A1FC38DEB4D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Administration", "Administration\Administration.csproj", "{D885189B-AFEA-4302-8C17-4EDCA501AB98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{D830EBC2-14AD-4CBA-B539-A1FC38DEB4D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D830EBC2-14AD-4CBA-B539-A1FC38DEB4D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D830EBC2-14AD-4CBA-B539-A1FC38DEB4D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D885189B-AFEA-4302-8C17-4EDCA501AB98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D885189B-AFEA-4302-8C17-4EDCA501AB98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D885189B-AFEA-4302-8C17-4EDCA501AB98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D885189B-AFEA-4302-8C17-4EDCA501AB98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
