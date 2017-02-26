@@ -14,7 +14,7 @@
             <RowDefinition Height="221*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <DataGrid x:Name="dataGrid" IsReadOnly="True" HorizontalAlignment="Left" Margin="10,-42,-2,0" AutoGenerateColumns="True" Width="592" Grid.RowSpan="3" Height="371" VerticalAlignment="Top" SelectionChanged="dataGrid_SelectionChanged" />
+        <DataGrid x:Name="dataGrid" IsReadOnly="True" HorizontalAlignment="Left" Margin="10,-42,-2,0" AutoGenerateColumns="True" Width="592" Grid.RowSpan="3" Height="371" VerticalAlignment="Top" MouseDoubleClick="dataGrid_MouseDoubleClick" />
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="44" Stroke="Black" VerticalAlignment="Top" Width="592" Margin="10,-86,-2,0"/>
         <TextBox x:Name="search_TextBox" HorizontalAlignment="Left" Height="23" Margin="120,-75,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" TextChanged="search_TextBox_TextChanged"/>
         <Label x:Name="label" Content="File Search:&#xD;&#xA;" HorizontalAlignment="Left" Margin="16,-78,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.039,0.25" Width="99" Height="26"/>

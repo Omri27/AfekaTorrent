@@ -30,6 +30,7 @@ namespace ClientSide
 
         public ShareWindow()
         {
+            FileProviderServerManager.StartFileProviderServer();
             InitializeComponent();
         }
         private void ShareWindow_Load(object sender, RoutedEventArgs e)
@@ -40,18 +41,18 @@ namespace ClientSide
 
             FilesServiceClient fsc = new FilesServiceClient();
             List<Entities.File> fileList = new List<Entities.File>();
-            foreach(Entities.File file in fsc.GetAllFiles())
-            {
-                Entities.File currentFile = new Entities.File();
-                currentFile.FileName = file.FileName;
-                currentFile.FileSize = file.FileSize;
-                currentFile.FileType = file.FileType;
-                currentFile.PeerID = file.PeerID;
-                currentFile.PeerHostName = file.PeerHostName;
-                fileList.Add(currentFile);
-            }
-            dataGrid.ItemsSource = fileList;
-            dataGrid.DataContext = fileList;
+                foreach (Entities.File file in fsc.GetAllFiles())
+                {
+                    Entities.File currentFile = new Entities.File();
+                    currentFile.FileName = file.FileName;
+                    currentFile.FileSize = file.FileSize;
+                    currentFile.FileType = file.FileType;
+                    currentFile.PeerID = file.PeerID;
+                    currentFile.PeerHostName = file.PeerHostName;
+                    fileList.Add(currentFile);
+                }
+                dataGrid.ItemsSource = fileList;
+                dataGrid.DataContext = fileList;
         }
 
         void fileTransferManager_FilePartDownloaded(object sender, DataContainerEventArg<FileTransferManager.FilePartData> e)
@@ -118,12 +119,11 @@ namespace ClientSide
             }
         }
 
-        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void dataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Entities.File fileSearchResult = dataGrid.SelectedItem as Entities.File;
             this.fileTransferManager.Download(fileSearchResult);
         }
-
 
 
         private void saveFile(List<Tuple<FileTransferManager.DownloadParameter, byte[]>> data)

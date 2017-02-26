@@ -22,6 +22,7 @@ namespace ClientSide
     {
         public MainWindow()
         {
+           // FileProviderServerManager.StartFileProviderServer();
             InitializeComponent();
         }
 
