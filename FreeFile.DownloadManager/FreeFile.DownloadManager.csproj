@@ -82,6 +82,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Properties\DataSources\Entities.File.datasource" />
+    <None Include="Properties\DataSources\Entities.User.datasource" />
     <None Include="Service References\FileServer\FilesService.wsdl" />
     <None Include="Service References\FileServer\item.xsd">
       <SubType>Designer</SubType>

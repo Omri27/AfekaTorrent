@@ -9,118 +9,7 @@
 //------------------------------------------------------------------------------
 
 namespace FreeFile.DownloadManager.UserServer {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/FreeFilesServerConsole.EF")]
-    [System.SerializableAttribute()]
-    public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DownloadFolderField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PasswordField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string SharedFolderField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid UserIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string UserNameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string DownloadFolder {
-            get {
-                return this.DownloadFolderField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DownloadFolderField, value) != true)) {
-                    this.DownloadFolderField = value;
-                    this.RaisePropertyChanged("DownloadFolder");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Password {
-            get {
-                return this.PasswordField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
-                    this.PasswordField = value;
-                    this.RaisePropertyChanged("Password");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string SharedFolder {
-            get {
-                return this.SharedFolderField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SharedFolderField, value) != true)) {
-                    this.SharedFolderField = value;
-                    this.RaisePropertyChanged("SharedFolder");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid UserID {
-            get {
-                return this.UserIDField;
-            }
-            set {
-                if ((this.UserIDField.Equals(value) != true)) {
-                    this.UserIDField = value;
-                    this.RaisePropertyChanged("UserID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UserName {
-            get {
-                return this.UserNameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
-                    this.UserNameField = value;
-                    this.RaisePropertyChanged("UserName");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="UserServer.UserService")]
@@ -128,6 +17,15 @@ namespace FreeFile.DownloadManager.UserServer {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/AddUser", ReplyAction="http://tempuri.org/UserService/AddUserResponse")]
         void AddUser(Entities.User user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/GetAllUsers", ReplyAction="http://tempuri.org/UserService/GetAllUsersResponse")]
+        Entities.User[] GetAllUsers();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/DeleteUser", ReplyAction="http://tempuri.org/UserService/DeleteUserResponse")]
+        void DeleteUser(System.Guid UserID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/GetUser", ReplyAction="http://tempuri.org/UserService/GetUserResponse")]
+        Entities.User GetUser(System.Guid UserID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -156,8 +54,21 @@ namespace FreeFile.DownloadManager.UserServer {
         public UserServiceClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
+        
         public void AddUser(Entities.User user) {
             base.Channel.AddUser(user);
+        }
+        
+        public Entities.User[] GetAllUsers() {
+            return base.Channel.GetAllUsers();
+        }
+        
+        public void DeleteUser(System.Guid UserID) {
+            base.Channel.DeleteUser(UserID);
+        }
+        
+        public Entities.User GetUser(System.Guid UserID) {
+            return base.Channel.GetUser(UserID);
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using Entities;
 using FreeFilesServerConsole.EF;
 using FreeFilesServerConsole.Repository;
 namespace FreeFilesServerConsole.WCFServices
@@ -16,12 +17,21 @@ namespace FreeFilesServerConsole.WCFServices
         [OperationContract]
         public void AddUser(Entities.User user)
         {
+            user.UserID = Guid.NewGuid();
             UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
 
             userRepository.AddUser(externalUserToEFUser(user));
 
             SaveUser();
         }
+
+        [OperationContract]
+        public List<Entities.User> GetAllUsers()
+        {
+            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
+            return internalUserToEntityUser(userRepository.GetAllUsers());
+        }
+
 
         public void SaveUser()
         {
@@ -38,5 +48,46 @@ namespace FreeFilesServerConsole.WCFServices
             EFUser.UserName = user.UserName;
             return EFUser;
         }
+
+        private List<Entities.User> internalUserToEntityUser(List<FreeFilesServerConsole.EF.User> userList)
+        {
+            List<Entities.User> entityFileTypeList = new List<Entities.User>();
+            foreach (var EFUser in userList)
+            {
+                Entities.User user = new Entities.User();
+                user.UserName = EFUser.UserName;
+                user.UserID = EFUser.UserID;
+                user.Password = EFUser.Password;
+                entityFileTypeList.Add(user);
+            }
+            return entityFileTypeList;
+        }
+
+        private Entities.User internalSingleUserToEntityUser(EF.User EFUser)
+        {
+           
+                Entities.User user = new Entities.User();
+                user.UserName = EFUser.UserName;
+                user.UserID = EFUser.UserID;
+                user.Password = EFUser.Password;
+            return user;
+        }
+
+        [OperationContract]
+        public void DeleteUser(Guid UserID)
+        {
+            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
+            userRepository.DeleteUser(UserID);
+        }
+
+        [OperationContract]
+        public Entities.User GetUser(Guid UserID)
+        {
+            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
+            EF.User user =  userRepository.GetUser(UserID);
+            return internalSingleUserToEntityUser(user);
+
+        }
+
     }
 }
