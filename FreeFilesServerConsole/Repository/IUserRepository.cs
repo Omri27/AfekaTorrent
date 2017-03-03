@@ -14,5 +14,9 @@ namespace FreeFilesServerConsole.Repository
         void DeleteUser(Guid UserID);
 
         EF.User GetUser(Guid UserID);
+
+        void EditUser(User user);
+
+        int GetUsersCount();
     }
 }

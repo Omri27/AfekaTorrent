@@ -12,8 +12,8 @@
           <Property Name="FileID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FileName" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="PeerID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="FileSize" Type="int" Nullable="false" />
           <Property Name="PeerHostName" Type="varchar" MaxLength="100" />
+          <Property Name="FileSize" Type="int" Nullable="false" />
           <Property Name="FileType" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Peers">
@@ -39,10 +39,11 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="UserName" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="SharedFolder" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="DownloadFolder" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="SharedFolder" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DownloadFolder" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="IsEnabled" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Files_Peers">
           <End Role="Peers" Type="Self.Peers" Multiplicity="1" />
@@ -128,10 +129,11 @@
             <PropertyRef Name="UserID" />
           </Key>
           <Property Name="UserID" Type="Guid" Nullable="false" />
-          <Property Name="UserName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="SharedFolder" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="DownloadFolder" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="SharedFolder" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DownloadFolder" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -174,6 +176,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="FreeFilesModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="DownloadFolder" ColumnName="DownloadFolder" />
                 <ScalarProperty Name="SharedFolder" ColumnName="SharedFolder" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

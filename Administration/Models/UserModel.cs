@@ -23,5 +23,9 @@ namespace Administration.Models
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            public Guid UserID { get; set; }
+            [Display(Name = "Is Enabled")]
+             public bool IsEnabled { get; set; }
         }
 }

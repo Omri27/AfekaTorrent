@@ -46,6 +46,7 @@ namespace FreeFilesServerConsole.WCFServices
             EFUser.SharedFolder = user.SharedFolder;
             EFUser.DownloadFolder = user.DownloadFolder;
             EFUser.UserName = user.UserName;
+            EFUser.IsEnabled = user.IsEnabled;
             return EFUser;
         }
 
@@ -58,6 +59,7 @@ namespace FreeFilesServerConsole.WCFServices
                 user.UserName = EFUser.UserName;
                 user.UserID = EFUser.UserID;
                 user.Password = EFUser.Password;
+                user.IsEnabled = EFUser.IsEnabled;
                 entityFileTypeList.Add(user);
             }
             return entityFileTypeList;
@@ -70,6 +72,7 @@ namespace FreeFilesServerConsole.WCFServices
                 user.UserName = EFUser.UserName;
                 user.UserID = EFUser.UserID;
                 user.Password = EFUser.Password;
+                user.IsEnabled = EFUser.IsEnabled;
             return user;
         }
 
@@ -88,6 +91,18 @@ namespace FreeFilesServerConsole.WCFServices
             return internalSingleUserToEntityUser(user);
 
         }
+        [OperationContract]
+        public void EditUser(Entities.User user)
+        {
+            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
+            userRepository.EditUser(user);
+        }
 
+        [OperationContract]
+        public int GetUsersCount()
+        {
+            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
+            return  userRepository.GetUsersCount();
+        }
     }
 }

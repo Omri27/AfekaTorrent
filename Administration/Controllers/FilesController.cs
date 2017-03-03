@@ -1,4 +1,5 @@
 ﻿using FreeFile.DownloadManager.FileServer;
+using FreeFile.DownloadManager.UserServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,23 +11,44 @@ namespace Administration.Controllers
     public class FilesController : Controller
     {
         // GET: Files
-        public ActionResult Files()
+        public ActionResult Files(string SearchString)
         {
+            
+            
             FilesServiceClient fsc = new FilesServiceClient();
+            UserServiceClient usc = new UserServiceClient();
+
+            ViewBag.UsersCount = usc.GetUsersCount();
+
             List<Entities.File> fileList = new List<Entities.File>();
-            List<File> fileModel = new List<File>();
-            foreach (Entities.File file in fsc.GetAllFiles())
+
+            Entities.File[] files = fsc.GetAllFiles();
+
+            ViewBag.FilesCount = files.Count();
+
+
+            if (SearchString==null || SearchString.Equals(""))
             {
-                Entities.File currentFile = new Entities.File();
-                currentFile.FileName = file.FileName;
-                currentFile.FileSize = file.FileSize;
-                currentFile.FileType = file.FileType;
-                currentFile.PeerID = file.PeerID;
-                currentFile.PeerHostName = file.PeerHostName;
-                fileList.Add(currentFile);
+                //foreach (Entities.File file in files)
+                //{
+                //    Entities.File currentFile = new Entities.File();
+                //    currentFile.FileName = file.FileName;
+                //    currentFile.FileSize = file.FileSize;
+                //    currentFile.FileType = file.FileType;
+                //    currentFile.PeerID = file.PeerID;
+                //    currentFile.PeerHostName = file.PeerHostName;
+                //    fileList.Add(currentFile);
+                //}
+                //ViewBag.FileList = fileList;
+
+                return View(files.ToList());
             }
-          
-            return View(fileList);
+           
+            else
+            {
+                 fileList = files.ToList().Where(x=>x.FileName.ToLower().Contains(SearchString.ToLower())).ToList();
+                return View(fileList);
+            }
         }
     }
 }

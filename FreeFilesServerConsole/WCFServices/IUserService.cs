@@ -16,5 +16,8 @@ namespace FreeFilesServerConsole.WCFServices
         void DeleteUser(Guid UserID);
 
         User GetUser(Guid UserID);
+        void EditUser(Entities.User user);
+
+        int GetUsersCount();
     }
 }

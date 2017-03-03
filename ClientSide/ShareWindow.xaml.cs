@@ -91,7 +91,7 @@ namespace ClientSide
             //User.SharedFolder = "cunt";
             UserServiceClient service = new UserServiceClient();
             //service.AddUser(User);
-            service.DeleteUser(Guid.Parse("96AE6ED2-C92C-4DB1-B27E-256B3CFA2908"));
+
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             //DialogResult result = openFileDialog1.ShowDialog();
             if (openFileDialog1.ShowDialog() == true)

@@ -4,54 +4,72 @@
     ViewBag.Title = "Files";
 }
 
+
+
+<div class="container">
+    <h4>Number of registered users: <strong>@ViewBag.UsersCount</strong></h4>
+    <h4>Number of files: <strong>@ViewBag.FilesCount</strong></h4>
+</div>
+
 <h2>Files</h2>
 
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FileName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileSize)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FileType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PeerID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PeerHostName)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileSize)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FileType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PeerID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PeerHostName)
-        </td>
-        @*<td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>*@
-    </tr>
-}
+<div class="wrapper">
+    @using (Html.BeginForm())
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString")
+            <input type="submit" value="Search" />
+        </p>
+    }
 
-</table>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FileName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileSize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FileType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PeerID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PeerHostName)
+            </th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileSize)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PeerID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PeerHostName)
+                </td>
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>*@
+            </tr>
+        }
+
+    </table>
+

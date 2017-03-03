@@ -18,7 +18,7 @@ namespace Administration.Controllers
             UserServiceClient Usc = new UserServiceClient();
             if (ModelState.IsValid)
             {
-                var user = new Entities.User { UserName = model.UserName, Password = model.Password , DownloadFolder="",SharedFolder="" };
+                var user = new Entities.User { UserName = model.UserName, Password = model.Password, DownloadFolder = "", SharedFolder = "",IsEnabled= model.IsEnabled };
                 Usc.AddUser(user);
 
                 // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
@@ -52,6 +52,7 @@ namespace Administration.Controllers
                 element.UserName = user.UserName;
                 element.UserID = user.UserID;
                 element.Password = user.Password;
+                element.IsEnabled = user.IsEnabled;
                 userList.Add(element);
             }
 
@@ -68,12 +69,24 @@ namespace Administration.Controllers
         public ActionResult DisplayUser(Guid UserID)
         {
             UserServiceClient Usc = new UserServiceClient();
-            return View(Usc.GetUser(UserID));
+            User user = Usc.GetUser(UserID);
+            RegisterViewModel displayUserModel = new RegisterViewModel();
+            displayUserModel.UserName = user.UserName;
+            displayUserModel.UserID = UserID;
+            displayUserModel.IsEnabled = user.IsEnabled;
+            return View(displayUserModel);
         }
 
-        public ActionResult EditUser(Entities.User user)
+        public ActionResult EditUser(RegisterViewModel model)
         {
-            return RedirectToAction("Users", "User");
+            UserServiceClient Usc = new UserServiceClient();
+            if (ModelState.IsValid)
+            {
+                var user = new Entities.User {UserID= model.UserID, UserName = model.UserName, Password = model.Password, DownloadFolder = "", SharedFolder = "",IsEnabled = model.IsEnabled };
+                Usc.EditUser(user);
+                return RedirectToAction("Users", "User");
+            }
+            return RedirectToAction("DisplayUser", "User",model);
         }
     }
 }

@@ -26,6 +26,12 @@ namespace FreeFile.DownloadManager.UserServer {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/GetUser", ReplyAction="http://tempuri.org/UserService/GetUserResponse")]
         Entities.User GetUser(System.Guid UserID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/EditUser", ReplyAction="http://tempuri.org/UserService/EditUserResponse")]
+        void EditUser(Entities.User user);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/GetUsersCount", ReplyAction="http://tempuri.org/UserService/GetUsersCountResponse")]
+        int GetUsersCount();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -69,6 +75,14 @@ namespace FreeFile.DownloadManager.UserServer {
         
         public Entities.User GetUser(System.Guid UserID) {
             return base.Channel.GetUser(UserID);
+        }
+        
+        public void EditUser(Entities.User user) {
+            base.Channel.EditUser(user);
+        }
+        
+        public int GetUsersCount() {
+            return base.Channel.GetUsersCount();
         }
     }
 }

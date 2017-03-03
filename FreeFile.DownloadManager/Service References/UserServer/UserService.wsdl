@@ -31,6 +31,18 @@
   <wsdl:message name="UserService_GetUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUserResponse" />
   </wsdl:message>
+  <wsdl:message name="UserService_EditUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:EditUser" />
+  </wsdl:message>
+  <wsdl:message name="UserService_EditUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EditUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserService_GetUsersCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersCount" />
+  </wsdl:message>
+  <wsdl:message name="UserService_GetUsersCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsersCountResponse" />
+  </wsdl:message>
   <wsdl:portType name="UserService">
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/UserService/AddUser" message="tns:UserService_AddUser_InputMessage" />
@@ -47,6 +59,14 @@
     <wsdl:operation name="GetUser">
       <wsdl:input wsaw:Action="http://tempuri.org/UserService/GetUser" message="tns:UserService_GetUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/UserService/GetUserResponse" message="tns:UserService_GetUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EditUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/UserService/EditUser" message="tns:UserService_EditUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/UserService/EditUserResponse" message="tns:UserService_EditUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/UserService/GetUsersCount" message="tns:UserService_GetUsersCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/UserService/GetUsersCountResponse" message="tns:UserService_GetUsersCount_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_UserService" type="tns:UserService">
@@ -80,6 +100,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetUser">
       <soap:operation soapAction="http://tempuri.org/UserService/GetUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EditUser">
+      <soap:operation soapAction="http://tempuri.org/UserService/EditUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsersCount">
+      <soap:operation soapAction="http://tempuri.org/UserService/GetUsersCount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

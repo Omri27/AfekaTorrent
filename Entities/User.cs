@@ -12,5 +12,7 @@ namespace Entities
         public string Password { get; set; }
         public string SharedFolder { get; set; }
         public string DownloadFolder { get; set; }
+        
+        public bool IsEnabled { get; set; }
     }
 }

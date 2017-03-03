@@ -32,6 +32,7 @@ namespace FreeFilesServerConsole.Repository
                 user.UserName = item.users.UserName;
                 user.UserID = item.users.UserID;
                 user.Password = item.users.Password;
+                user.IsEnabled = item.users.IsEnabled;
                 List.Add(user);
             }
             return List;
@@ -49,6 +50,19 @@ namespace FreeFilesServerConsole.Repository
             return  _freeFilesObjectContext.Users.Where(o => o.UserID == UserID).FirstOrDefault();
         }
 
-      
+        public void EditUser(Entities.User user)
+        {
+            EF.User efUser = _freeFilesObjectContext.Users.Where(o => o.UserID == user.UserID).FirstOrDefault();
+            efUser.UserName = user.UserName;
+            efUser.Password = user.Password;
+            efUser.IsEnabled = user.IsEnabled;
+            _freeFilesObjectContext.Users.Attach(efUser);
+            _freeFilesObjectContext.SaveChanges();
+        }
+
+        public int GetUsersCount()
+        {
+            return _freeFilesObjectContext.Users.Count();
+        }
     }
 }
