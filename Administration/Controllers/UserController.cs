@@ -53,6 +53,8 @@ namespace Administration.Controllers
                 element.UserID = user.UserID;
                 element.Password = user.Password;
                 element.IsEnabled = user.IsEnabled;
+                element.DownloadFolder = user.DownloadFolder;
+                element.SharedFolder = user.SharedFolder;
                 userList.Add(element);
             }
 

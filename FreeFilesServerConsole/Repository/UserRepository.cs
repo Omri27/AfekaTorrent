@@ -42,6 +42,8 @@ namespace FreeFilesServerConsole.Repository
                 user.UserID = item.users.UserID;
                 user.Password = item.users.Password;
                 user.IsEnabled = item.users.IsEnabled;
+                user.SharedFolder = item.users.SharedFolder;
+                user.DownloadFolder = item.users.DownloadFolder;
                 List.Add(user);
             }
             return List;

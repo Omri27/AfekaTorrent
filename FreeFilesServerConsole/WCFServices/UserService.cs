@@ -68,6 +68,8 @@ namespace FreeFilesServerConsole.WCFServices
                 user.UserID = EFUser.UserID;
                 user.Password = EFUser.Password;
                 user.IsEnabled = EFUser.IsEnabled;
+                user.SharedFolder = EFUser.SharedFolder;
+                user.DownloadFolder = EFUser.DownloadFolder;
                 entityFileTypeList.Add(user);
             }
             return entityFileTypeList;
@@ -81,6 +83,8 @@ namespace FreeFilesServerConsole.WCFServices
                 user.UserID = EFUser.UserID;
                 user.Password = EFUser.Password;
                 user.IsEnabled = EFUser.IsEnabled;
+                user.SharedFolder = EFUser.SharedFolder;
+                user.DownloadFolder = EFUser.DownloadFolder;
             return user;
         }
 
