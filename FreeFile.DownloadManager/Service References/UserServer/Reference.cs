@@ -18,6 +18,9 @@ namespace FreeFile.DownloadManager.UserServer {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/AddUser", ReplyAction="http://tempuri.org/UserService/AddUserResponse")]
         void AddUser(Entities.User user);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/Login", ReplyAction="http://tempuri.org/UserService/LoginResponse")]
+        System.Guid Login(string userName, string password);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/GetAllUsers", ReplyAction="http://tempuri.org/UserService/GetAllUsersResponse")]
         Entities.User[] GetAllUsers();
         
@@ -32,6 +35,9 @@ namespace FreeFile.DownloadManager.UserServer {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/GetUsersCount", ReplyAction="http://tempuri.org/UserService/GetUsersCountResponse")]
         int GetUsersCount();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/UpdateFolders", ReplyAction="http://tempuri.org/UserService/UpdateFoldersResponse")]
+        void UpdateFolders(string download, string shared, System.Guid UserId);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -65,6 +71,10 @@ namespace FreeFile.DownloadManager.UserServer {
             base.Channel.AddUser(user);
         }
         
+        public System.Guid Login(string userName, string password) {
+            return base.Channel.Login(userName, password);
+        }
+        
         public Entities.User[] GetAllUsers() {
             return base.Channel.GetAllUsers();
         }
@@ -83,6 +93,10 @@ namespace FreeFile.DownloadManager.UserServer {
         
         public int GetUsersCount() {
             return base.Channel.GetUsersCount();
+        }
+        
+        public void UpdateFolders(string download, string shared, System.Guid UserId) {
+            base.Channel.UpdateFolders(download, shared, UserId);
         }
     }
 }

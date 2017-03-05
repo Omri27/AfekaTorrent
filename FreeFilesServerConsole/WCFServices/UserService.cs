@@ -26,6 +26,14 @@ namespace FreeFilesServerConsole.WCFServices
         }
 
         [OperationContract]
+
+        public Guid Login(string userName, string password)
+        {
+            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
+            return userRepository.Login(userName, password);
+        }
+
+        [OperationContract]
         public List<Entities.User> GetAllUsers()
         {
             UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
@@ -103,6 +111,12 @@ namespace FreeFilesServerConsole.WCFServices
         {
             UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
             return  userRepository.GetUsersCount();
+        }
+        [OperationContract]
+        public void UpdateFolders(string download, string shared, Guid UserId)
+        {
+            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
+            userRepository.UpdateFolders(download, shared, UserId);
         }
     }
 }

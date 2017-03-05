@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
+
 using System.Text;
 using Entities;
 using FreeFilesServerConsole.EF;
@@ -20,6 +22,13 @@ namespace FreeFilesServerConsole.Repository
             _freeFilesObjectContext.Users.AddObject(user);
         }
 
+        public Guid Login(string userName, string password)
+        {
+            var userList = this.GetAllUsers();
+            var user = userList.Where(x => x.UserName == userName && x.Password == password).FirstOrDefault();
+            return user != null ? user.UserID : Guid.Empty;
+            
+        }
         public List<EF.User> GetAllUsers()
         {
             var userList = from users in _freeFilesObjectContext.Users
@@ -63,6 +72,16 @@ namespace FreeFilesServerConsole.Repository
         public int GetUsersCount()
         {
             return _freeFilesObjectContext.Users.Count();
+        }
+
+        public void UpdateFolders(string download, string shared,Guid UserId)
+        {
+            EF.User efUser = _freeFilesObjectContext.Users.Where(o => o.UserID == UserId).FirstOrDefault();
+            efUser.SharedFolder = shared;
+            efUser.DownloadFolder = download;
+            _freeFilesObjectContext.Users.Attach(efUser);
+            _freeFilesObjectContext.SaveChanges();
+
         }
     }
 }

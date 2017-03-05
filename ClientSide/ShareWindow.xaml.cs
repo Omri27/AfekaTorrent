@@ -83,14 +83,8 @@ namespace ClientSide
 
         private void shareBtn_Click(object sender, RoutedEventArgs e)
         {
-            //Entities.User User = new Entities.User();
-            //User.UserID = Guid.NewGuid();
-            //User.UserName = "Omri";
-            //User.Password = "12345";
-            //User.DownloadFolder = "cunt";
-            //User.SharedFolder = "cunt";
+           
             UserServiceClient service = new UserServiceClient();
-            //service.AddUser(User);
 
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             //DialogResult result = openFileDialog1.ShowDialog();

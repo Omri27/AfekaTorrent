@@ -18,7 +18,7 @@ namespace Administration.Controllers
             UserServiceClient Usc = new UserServiceClient();
             if (ModelState.IsValid)
             {
-                var user = new Entities.User { UserName = model.UserName, Password = model.Password, DownloadFolder = "", SharedFolder = "",IsEnabled= model.IsEnabled };
+                var user = new Entities.User { UserName = model.UserName, Password = model.Password, DownloadFolder = "", SharedFolder = "",IsEnabled= true };
                 Usc.AddUser(user);
 
                 // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

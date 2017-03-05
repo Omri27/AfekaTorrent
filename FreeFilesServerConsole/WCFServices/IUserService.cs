@@ -10,6 +10,7 @@ namespace FreeFilesServerConsole.WCFServices
     {
         void AddUser(Entities.User user);
 
+        Guid Login(string userName, string password);
 
         List<Entities.User> GetAllUsers();
 
@@ -19,5 +20,7 @@ namespace FreeFilesServerConsole.WCFServices
         void EditUser(Entities.User user);
 
         int GetUsersCount();
+
+        void UpdateFolders(string download, string shared, Guid UserId);
     }
 }
