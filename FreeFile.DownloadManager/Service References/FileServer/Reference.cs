@@ -128,10 +128,16 @@ namespace FreeFile.DownloadManager.FileServer {
         private string FileTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private FreeFile.DownloadManager.FileServer.Peer PeerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PeerHostNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Guid PeerIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private FreeFile.DownloadManager.FileServer.User UserField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Guid UserIDField;
@@ -199,6 +205,19 @@ namespace FreeFile.DownloadManager.FileServer {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public FreeFile.DownloadManager.FileServer.Peer Peer {
+            get {
+                return this.PeerField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PeerField, value) != true)) {
+                    this.PeerField = value;
+                    this.RaisePropertyChanged("Peer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string PeerHostName {
             get {
                 return this.PeerHostNameField;
@@ -220,6 +239,19 @@ namespace FreeFile.DownloadManager.FileServer {
                 if ((this.PeerIDField.Equals(value) != true)) {
                     this.PeerIDField = value;
                     this.RaisePropertyChanged("PeerID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public FreeFile.DownloadManager.FileServer.User User {
+            get {
+                return this.UserField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserField, value) != true)) {
+                    this.UserField = value;
+                    this.RaisePropertyChanged("User");
                 }
             }
         }
@@ -247,6 +279,163 @@ namespace FreeFile.DownloadManager.FileServer {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="User", Namespace="http://schemas.datacontract.org/2004/07/FreeFilesServerConsole.EF")]
+    [System.SerializableAttribute()]
+    public partial class User : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DownloadFolderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private FreeFile.DownloadManager.FileServer.File[] FilesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsActiveField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsEnabledField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string PasswordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string SharedFolderField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid UserIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UserNameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DownloadFolder {
+            get {
+                return this.DownloadFolderField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DownloadFolderField, value) != true)) {
+                    this.DownloadFolderField = value;
+                    this.RaisePropertyChanged("DownloadFolder");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public FreeFile.DownloadManager.FileServer.File[] Files {
+            get {
+                return this.FilesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FilesField, value) != true)) {
+                    this.FilesField = value;
+                    this.RaisePropertyChanged("Files");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsActive {
+            get {
+                return this.IsActiveField;
+            }
+            set {
+                if ((this.IsActiveField.Equals(value) != true)) {
+                    this.IsActiveField = value;
+                    this.RaisePropertyChanged("IsActive");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsEnabled {
+            get {
+                return this.IsEnabledField;
+            }
+            set {
+                if ((this.IsEnabledField.Equals(value) != true)) {
+                    this.IsEnabledField = value;
+                    this.RaisePropertyChanged("IsEnabled");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Password {
+            get {
+                return this.PasswordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
+                    this.PasswordField = value;
+                    this.RaisePropertyChanged("Password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string SharedFolder {
+            get {
+                return this.SharedFolderField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SharedFolderField, value) != true)) {
+                    this.SharedFolderField = value;
+                    this.RaisePropertyChanged("SharedFolder");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid UserID {
+            get {
+                return this.UserIDField;
+            }
+            set {
+                if ((this.UserIDField.Equals(value) != true)) {
+                    this.UserIDField = value;
+                    this.RaisePropertyChanged("UserID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string UserName {
+            get {
+                return this.UserNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UserNameField, value) != true)) {
+                    this.UserNameField = value;
+                    this.RaisePropertyChanged("UserName");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="FileServer.FilesService")]
     public interface FilesService {
@@ -258,7 +447,7 @@ namespace FreeFile.DownloadManager.FileServer {
         void AddPeer(FreeFile.DownloadManager.FileServer.Peer Peer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FilesService/SearchAvaiableFiles", ReplyAction="http://tempuri.org/FilesService/SearchAvaiableFilesResponse")]
-        Entities.File[] SearchAvaiableFiles(string fileName);
+        Entities.File[] SearchAvaiableFiles(string fileName, System.Guid userId);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FilesService/GetAllFiles", ReplyAction="http://tempuri.org/FilesService/GetAllFilesResponse")]
         Entities.File[] GetAllFiles();
@@ -299,8 +488,8 @@ namespace FreeFile.DownloadManager.FileServer {
             base.Channel.AddPeer(Peer);
         }
         
-        public Entities.File[] SearchAvaiableFiles(string fileName) {
-            return base.Channel.SearchAvaiableFiles(fileName);
+        public Entities.File[] SearchAvaiableFiles(string fileName, System.Guid userId) {
+            return base.Channel.SearchAvaiableFiles(fileName, userId);
         }
         
         public Entities.File[] GetAllFiles() {

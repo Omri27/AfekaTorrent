@@ -30,10 +30,10 @@ namespace FreeFilesServerConsole.WCFServices
 
         }
         [OperationContract]
-        public List<Entities.File> SearchAvaiableFiles(string fileName)
+        public List<Entities.File> SearchAvaiableFiles(string fileName, Guid userId)
         {
             FileRepository fileRepository = new FileRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
-            return internalFileToEntityFile(fileRepository.SearchAvaiableFiles(fileName));
+            return internalFileToEntityFile(fileRepository.SearchAvaiableFiles(fileName,userId));
         }
         [OperationContract]
         public List<Entities.File> GetAllFiles()

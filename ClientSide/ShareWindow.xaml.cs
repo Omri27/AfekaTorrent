@@ -30,7 +30,7 @@ namespace ClientSide
     {
          Guid user;
         FileTransferManager fileTransferManager;
-
+        List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>> data;
         public ShareWindow(Guid user)
         {
             this.user = user;
@@ -100,7 +100,7 @@ namespace ClientSide
 
         void fileTransferManager_FilePartDownloaded(object sender, DataContainerEventArg<FileTransferManager.FilePartData> e)
         {
-            List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>> data = new List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>>();
+           // List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>> data = new List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>>();
             data.Add(new Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>(e.Data.DownloadParameter, e.Data.FileBytes));
             if (e.Data.DownloadParameter.AllPartsCount == e.Data.DownloadParameter.Part)
             {
@@ -117,7 +117,7 @@ namespace ClientSide
         {
             if (!string.IsNullOrWhiteSpace(search_TextBox.Text))
             {
-                List<Entities.File> foundFileInfoList = fileTransferManager.SearchFileByName(search_TextBox.Text);
+                List<Entities.File> foundFileInfoList = fileTransferManager.SearchFileByName(search_TextBox.Text, user);
                 dataGrid.ItemsSource = foundFileInfoList;
                 dataGrid.DataContext = foundFileInfoList;
                 //this.dataGrid.DataContext = foundFileInfoList;
@@ -159,6 +159,7 @@ namespace ClientSide
 
         private void dataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            data = new List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>>();
             Entities.File fileSearchResult = dataGrid.SelectedItem as Entities.File;
             this.fileTransferManager.Download(fileSearchResult);
         }

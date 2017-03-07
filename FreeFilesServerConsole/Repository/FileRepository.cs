@@ -13,7 +13,7 @@ namespace FreeFilesServerConsole.EF.Repository
             
             _freeFilesObjectContext = unitOfWork as FreeFilesEntitiesContext;
         }
-        public List<FreeFilesServerConsole.EF.File> SearchAvaiableFiles(string fileName)
+        public List<FreeFilesServerConsole.EF.File> SearchAvaiableFiles(string fileName, Guid userId)
         {
 
             if (fileName.Equals("*"))
@@ -23,7 +23,7 @@ namespace FreeFilesServerConsole.EF.Repository
                                    join peers in _freeFilesObjectContext.Peers on files.PeerID equals peers.PeerID
                                    
                                    //where files.FileName.Contains(fileName)
-                                   where users.IsActive == true
+                                   where users.IsActive == true && users.UserID != userId
                                    select new { files, peers,users };
                 List<FreeFilesServerConsole.EF.File> List = new List<File>();
                 foreach (var item in allfilesList)
@@ -44,7 +44,7 @@ namespace FreeFilesServerConsole.EF.Repository
                 var filesList = from files in _freeFilesObjectContext.Files
                                 join peers in _freeFilesObjectContext.Peers on files.PeerID equals peers.PeerID
                                 join users in _freeFilesObjectContext.Users on files.UserID equals users.UserID
-                                where files.FileName.Contains(fileName) && users.IsActive == true
+                                where files.FileName.Contains(fileName) && users.IsActive == true && users.UserID != userId
                                 select new { files, peers, users };
                 List<FreeFilesServerConsole.EF.File> List = new List<File>();
                 foreach (var item in filesList)

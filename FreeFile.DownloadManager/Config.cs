@@ -57,7 +57,7 @@ namespace FreeFile.DownloadManager
             get
             {
                 var localPort = Registry.CurrentUser.GetValue(FreeFileLocalPortKey);
-                int port = 20288;
+                int port = 20388;
                 if (localPort == null)
                 {
                     Registry.CurrentUser.SetValue(FreeFileLocalPortKey, port);

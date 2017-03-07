@@ -13,6 +13,6 @@ namespace FreeFiles.TransferEngine.WCFPNRP.WCFFileTransferService
         byte[] TransferFileByHash(string fileName,string hash, long partNumber);
         
         [OperationContractAttribute(IsOneWay = false)]
-        byte[] TransferFile(string fileName, long partNumber);
+        byte[] TransferFile(string fileName, long partNumber , long countPart , long mod);
     }
 }

@@ -17,9 +17,9 @@ namespace FreeFiles.TransferEngine.WCFPNRP.WCFFileTransferService
             return FileReader.GetFileBytes(fileName,hash, partNumber);
         }
 
-        public byte[] TransferFile(string fileName, long partNumber)
+        public byte[] TransferFile(string fileName, long partNumber, long partCount , long mod)
         {
-            return FileReader.GetFileBytes(fileName, partNumber);
+            return FileReader.GetFileBytes(fileName, partNumber, partCount, mod);
         }
     }
 }

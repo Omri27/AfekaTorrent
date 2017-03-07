@@ -25,6 +25,7 @@ namespace FreeFile.DownloadManager
 
             public long AllPartsCount { get; set; }
             public long Part { get; set; }
+            public long mod { get; set; }
             public string Host { get; set; }
             public Entities.File FileSearchResult { get; set; }
         }
@@ -46,14 +47,15 @@ namespace FreeFile.DownloadManager
 
         private void StartDownload(object state)
         {
+            long actualSizeMod = 0;
             Entities.File fileSearchResult = state as Entities.File;
             //Wee need to aply multiThreading to use multi host to download diferent part of file cuncurently max number of thread could be 5 thread per host in all of the application;
             long partcount = fileSearchResult.FileSize / FilePartSizeInByte;
             long mod = fileSearchResult.FileSize % FilePartSizeInByte;
-            if (mod > 0) partcount++;
+            if (mod > 0) { actualSizeMod = fileSearchResult.FileSize - (partcount * FilePartSizeInByte); partcount++; }
             for (int i = 1; i <=partcount; i++)
             {
-                downloadFilePart(new DownloadParameter { FileSearchResult = fileSearchResult, Host = fileSearchResult.PeerHostName, Part = i, AllPartsCount = partcount });    
+                downloadFilePart(new DownloadParameter { FileSearchResult = fileSearchResult, Host = fileSearchResult.PeerHostName, Part = i, AllPartsCount = partcount, mod = actualSizeMod });    
             }
             
                       
@@ -67,7 +69,7 @@ namespace FreeFile.DownloadManager
         {
             try
             {
-                var data = transferEngine.GetFile(downloadParameter.FileSearchResult.FileName, downloadParameter.Part, downloadParameter.Host);
+                var data = transferEngine.GetFile(downloadParameter.FileSearchResult.FileName, downloadParameter.Part, downloadParameter.Host, downloadParameter.AllPartsCount, downloadParameter.mod);
                 onFilePartDownloaded(new FilePartData(downloadParameter, data));
                 //Error
             }
@@ -104,9 +106,9 @@ namespace FreeFile.DownloadManager
             }
         }
 
-        public List<Entities.File> SearchFileByName(string fileName)
+        public List<Entities.File> SearchFileByName(string fileName, Guid userId)
         {
-           return this.searchEngine.Search(fileName);
+           return this.searchEngine.Search(fileName, userId);
         }
 
         public void Download(Entities.File fileSearchResult)

@@ -7,7 +7,7 @@ namespace FreeFile.DownloadManager.Abstract
 {
     public interface ISearchEngine
     {
-        List<Entities.File> Search(string searchPattern);
+        List<Entities.File> Search(string searchPattern, Guid userId);
         List<FileSearchResult> SearchByFileHashCode(string hashCode);
     }
 }

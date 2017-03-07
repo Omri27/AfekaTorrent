@@ -7,7 +7,7 @@ namespace FreeFilesServerConsole.EF.Repository
 {
     public interface IFilesRepository
     {
-        List<FreeFilesServerConsole.EF.File> SearchAvaiableFiles(string fileName);
+        List<FreeFilesServerConsole.EF.File> SearchAvaiableFiles(string fileName, Guid userId);
         void AddFiles(List<FreeFilesServerConsole.EF.File> FilesList);
         List<FreeFilesServerConsole.EF.File> GetAllFiles();
 

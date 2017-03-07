@@ -41,10 +41,10 @@ namespace FreeFiles.TransferEngine.WCFPNRP.WCFFileTransferClient
                 return _bytes;
             }
 
-            public byte[] TransferFile(string fileName, long partNumber)
+            public byte[] TransferFile(string fileName, long partNumber, long partCount, long mod)
             {
                 //##
-                byte[] _bytes = base.Channel.TransferFile(fileName, partNumber);
+                byte[] _bytes = base.Channel.TransferFile(fileName, partNumber, partCount, mod);
                 return _bytes;
             }
         }

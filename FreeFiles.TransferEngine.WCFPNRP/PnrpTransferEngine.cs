@@ -59,8 +59,7 @@ namespace FreeFiles.TransferEngine.WCFPNRP
             return data;
 
         }
-
-        byte[] ITransferEngine.GetFile(string filename, long partNumber, string hostName)
+        byte[] ITransferEngine.GetFile(string filename, long partNumber, string hostName, long partCount, long mod)
         {
             var peers = pnrpManager.ResolveByPeerHostName(hostName);
             byte[] data = null;
@@ -77,7 +76,7 @@ namespace FreeFiles.TransferEngine.WCFPNRP
                     try
                     {
                         //########
-                        data = Client.TransferFile(filename, partNumber);
+                        data = Client.TransferFile(filename, partNumber, partCount, mod);
                         dataretrived = true;
                         //break;
                     }

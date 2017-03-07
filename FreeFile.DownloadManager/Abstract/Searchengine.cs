@@ -8,12 +8,12 @@ namespace FreeFile.DownloadManager.Abstract
 {
     class Searchengine:ISearchEngine
     {
-        public List<Entities.File> Search(string searchPattern)
+        public List<Entities.File> Search(string searchPattern, Guid userId)
         {
             FileServer.FilesServiceClient fileServiceClient = new FileServer.FilesServiceClient();
             
             List<Entities.File> filesList = new List<File>();
-            foreach (var file in fileServiceClient.SearchAvaiableFiles(searchPattern))
+            foreach (var file in fileServiceClient.SearchAvaiableFiles(searchPattern, userId))
             {
                 Entities.File currentFile = new File();
                 currentFile.FileName = file.FileName;
