@@ -21,6 +21,7 @@ namespace FreeFile.DownloadManager.Abstract
                 currentFile.FileType = file.FileType;
                 currentFile.PeerID = file.PeerID;
                 currentFile.PeerHostName = file.PeerHostName;
+                currentFile.UserID = file.UserID;
                 filesList.Add(currentFile);
             }
             return filesList;

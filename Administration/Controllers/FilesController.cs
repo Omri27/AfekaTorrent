@@ -19,12 +19,13 @@ namespace Administration.Controllers
             UserServiceClient usc = new UserServiceClient();
 
             ViewBag.UsersCount = usc.GetUsersCount();
-
+            ViewBag.ActiveUsersCount = usc.GetActiveUsersCount();
             List<Entities.File> fileList = new List<Entities.File>();
 
             Entities.File[] files = fsc.GetAllFiles();
 
             ViewBag.FilesCount = files.Count();
+
 
 
             if (SearchString==null || SearchString.Equals(""))

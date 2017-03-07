@@ -91,7 +91,7 @@ namespace ClientSide
 
                     doc.Save(path);
                     usc.UpdateFolders(downloadFolderNode.InnerText, SharedFolderNode.InnerText, loginGuid);
-                    ShareWindow shareWindow = new ShareWindow();
+                    ShareWindow shareWindow = new ShareWindow(loginGuid);
                     shareWindow.Show();
                     this.Close();
 

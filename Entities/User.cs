@@ -14,5 +14,7 @@ namespace Entities
         public string DownloadFolder { get; set; }
         
         public bool IsEnabled { get; set; }
+        
+        public bool IsActive { get; set; }
     }
 }

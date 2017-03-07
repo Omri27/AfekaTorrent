@@ -18,6 +18,8 @@ using System.IO;
 using FreeFilesServerConsole.WCFServices;
 using FreeFile.DownloadManager.UserServer;
 using FreeFile.DownloadManager.FileServer;
+using System.Xml;
+using FreeFile.DownloadManager.FileServer;
 
 namespace ClientSide
 {
@@ -26,33 +28,74 @@ namespace ClientSide
     /// </summary>
     public partial class ShareWindow : Window
     {
+         Guid user;
         FileTransferManager fileTransferManager;
 
-        public ShareWindow()
+        public ShareWindow(Guid user)
         {
+            this.user = user;
+            
+           
             FileProviderServerManager.StartFileProviderServer();
+
             InitializeComponent();
+        }
+        public  List<Entities.File>  ProcessDirectory(string targetDirectory,Guid peerId)
+        {
+            List<Entities.File> files = new List<Entities.File>();
+            // Process the list of files found in the directory.
+            string[] fileEntries = Directory.GetFiles(targetDirectory);
+            foreach (string fileName in fileEntries)
+            {
+                Entities.File File = new Entities.File();
+                
+                File.FileName = fileName;
+                FileInfo fInfo = new FileInfo(fileName);
+                File.FileSize = (int)fInfo.Length;
+                File.FileType = System.IO.Path.GetExtension(fileName);
+                File.PeerHostName = Config.LocalHostyName;
+                File.PeerID = peerId;
+                File.UserID = user;
+                files.Add(File);
+            }
+            return files;
         }
         private void ShareWindow_Load(object sender, RoutedEventArgs e)
         {
-            
+            FilesServiceClient fsc = new FilesServiceClient();
             fileTransferManager = new FileTransferManager();
             fileTransferManager.FilePartDownloaded += fileTransferManager_FilePartDownloaded;
 
-            FilesServiceClient fsc = new FilesServiceClient();
-            List<Entities.File> fileList = new List<Entities.File>();
-                foreach (Entities.File file in fsc.GetAllFiles())
-                {
-                    Entities.File currentFile = new Entities.File();
-                    currentFile.FileName = file.FileName;
-                    currentFile.FileSize = file.FileSize;
-                    currentFile.FileType = file.FileType;
-                    currentFile.PeerID = file.PeerID;
-                    currentFile.PeerHostName = file.PeerHostName;
-                    fileList.Add(currentFile);
-                }
-                dataGrid.ItemsSource = fileList;
-                dataGrid.DataContext = fileList;
+            string path = System.IO.Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName, "MyConfig.xml");
+            XmlDocument doc = new XmlDocument();
+            doc.Load(path);
+            XmlNode root = doc.DocumentElement;
+            XmlNode SharedFolderNode = root.SelectSingleNode("SharedFolder");
+            var sharedFolder = SharedFolderNode.InnerText;
+            List<Entities.File> filesDirectory = new List<Entities.File>();
+
+            if (Directory.Exists(sharedFolder))
+            {
+                Entities.Peer peer = new Entities.Peer();
+                peer.PeerID = Guid.NewGuid();
+                peer.PeerHostName = Config.LocalHostyName;
+                filesDirectory.AddRange(ProcessDirectory(sharedFolder, peer.PeerID));            
+                fileTransferManager.AddFiles(filesDirectory, peer);
+            }
+          
+            //List<Entities.File> fileList = new List<Entities.File>();
+            //    foreach (Entities.File file in fsc.GetAllFiles())
+            //    {
+            //        Entities.File currentFile = new Entities.File();
+            //        currentFile.FileName = file.FileName;
+            //        currentFile.FileSize = file.FileSize;
+            //        currentFile.FileType = file.FileType;
+            //        currentFile.PeerID = file.PeerID;
+            //        currentFile.PeerHostName = file.PeerHostName;
+            //        fileList.Add(currentFile);
+            //    }
+            //    dataGrid.ItemsSource = fileList;
+            //    dataGrid.DataContext = fileList;
         }
 
         void fileTransferManager_FilePartDownloaded(object sender, DataContainerEventArg<FileTransferManager.FilePartData> e)
@@ -104,6 +147,7 @@ namespace ClientSide
                 FileType.FileType = System.IO.Path.GetExtension(openFileDialog1.FileName);
                 FileType.PeerHostName = Config.LocalHostyName;
                 peerType.PeerID = FileType.PeerID = Guid.NewGuid();
+                FileType.UserID = user;
                 addedFiles.Add(FileType);
 
 
@@ -145,6 +189,10 @@ namespace ClientSide
            
         }
 
-
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            UserServiceClient service = new UserServiceClient();
+            service.Logout(user);
+        }
     }
 }

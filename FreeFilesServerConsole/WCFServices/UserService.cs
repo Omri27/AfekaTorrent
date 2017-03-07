@@ -122,5 +122,18 @@ namespace FreeFilesServerConsole.WCFServices
             UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
             userRepository.UpdateFolders(download, shared, UserId);
         }
+        [OperationContract]
+        public void Logout(Guid userId)
+        {
+            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
+            userRepository.Logout(userId);
+        }
+
+        [OperationContract]
+        public int GetActiveUsersCount()
+        {
+            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
+            return userRepository.GetActiveUsersCount();
+        }
     }
 }

@@ -55,6 +55,18 @@
   <wsdl:message name="UserService_UpdateFolders_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateFoldersResponse" />
   </wsdl:message>
+  <wsdl:message name="UserService_Logout_InputMessage">
+    <wsdl:part name="parameters" element="tns:Logout" />
+  </wsdl:message>
+  <wsdl:message name="UserService_Logout_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogoutResponse" />
+  </wsdl:message>
+  <wsdl:message name="UserService_GetActiveUsersCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetActiveUsersCount" />
+  </wsdl:message>
+  <wsdl:message name="UserService_GetActiveUsersCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetActiveUsersCountResponse" />
+  </wsdl:message>
   <wsdl:portType name="UserService">
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/UserService/AddUser" message="tns:UserService_AddUser_InputMessage" />
@@ -87,6 +99,14 @@
     <wsdl:operation name="UpdateFolders">
       <wsdl:input wsaw:Action="http://tempuri.org/UserService/UpdateFolders" message="tns:UserService_UpdateFolders_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/UserService/UpdateFoldersResponse" message="tns:UserService_UpdateFolders_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <wsdl:input wsaw:Action="http://tempuri.org/UserService/Logout" message="tns:UserService_Logout_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/UserService/LogoutResponse" message="tns:UserService_Logout_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveUsersCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/UserService/GetActiveUsersCount" message="tns:UserService_GetActiveUsersCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/UserService/GetActiveUsersCountResponse" message="tns:UserService_GetActiveUsersCount_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_UserService" type="tns:UserService">
@@ -156,6 +176,24 @@
     </wsdl:operation>
     <wsdl:operation name="UpdateFolders">
       <soap:operation soapAction="http://tempuri.org/UserService/UpdateFolders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Logout">
+      <soap:operation soapAction="http://tempuri.org/UserService/Logout" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetActiveUsersCount">
+      <soap:operation soapAction="http://tempuri.org/UserService/GetActiveUsersCount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

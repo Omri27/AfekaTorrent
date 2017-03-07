@@ -10,7 +10,7 @@ using System.ServiceModel;
 namespace FreeFilesServerConsole.WCFServices
 {
     [ServiceContract]
-    public class FilesService
+    public class FilesService : IFileService
     {
         private FreeFilesEntitiesContext _freeFilesObjectContext=new FreeFilesEntitiesContext();
         [OperationContract]
@@ -70,6 +70,7 @@ namespace FreeFilesServerConsole.WCFServices
                 EFFile.FileType = file.FileType;
                 EFFile.PeerID = file.PeerID;
                 EFFile.PeerHostName = file.PeerHostName;
+                EFFile.UserID = file.UserID;
                 nativeFileTypeList.Add(EFFile);
             }
             return nativeFileTypeList;
@@ -80,15 +81,17 @@ namespace FreeFilesServerConsole.WCFServices
             List<Entities.File> entityFileTypeList = new List<Entities.File>();
             foreach (var file in fileList)
             {
-                Entities.File EFFile = new Entities.File();
-                EFFile.FileName = file.FileName;
-                EFFile.FileSize = file.FileSize;
-                EFFile.FileType = file.FileType;
-                EFFile.PeerHostName = file.PeerHostName;
-                EFFile.PeerID = file.PeerID;
-                entityFileTypeList.Add(EFFile);
+                Entities.File File = new Entities.File();
+                File.FileName = file.FileName;
+                File.FileSize = file.FileSize;
+                File.FileType = file.FileType;
+                File.PeerHostName = file.PeerHostName;
+                File.PeerID = file.PeerID;
+                File.UserID = file.UserID;
+                entityFileTypeList.Add(File);
             }
             return entityFileTypeList;
         }
+
     }
 }

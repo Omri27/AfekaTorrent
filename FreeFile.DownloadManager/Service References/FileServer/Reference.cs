@@ -128,13 +128,13 @@ namespace FreeFile.DownloadManager.FileServer {
         private string FileTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private FreeFile.DownloadManager.FileServer.Peer PeerField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PeerHostNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Guid PeerIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid UserIDField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -199,19 +199,6 @@ namespace FreeFile.DownloadManager.FileServer {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public FreeFile.DownloadManager.FileServer.Peer Peer {
-            get {
-                return this.PeerField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PeerField, value) != true)) {
-                    this.PeerField = value;
-                    this.RaisePropertyChanged("Peer");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string PeerHostName {
             get {
                 return this.PeerHostNameField;
@@ -233,6 +220,19 @@ namespace FreeFile.DownloadManager.FileServer {
                 if ((this.PeerIDField.Equals(value) != true)) {
                     this.PeerIDField = value;
                     this.RaisePropertyChanged("PeerID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid UserID {
+            get {
+                return this.UserIDField;
+            }
+            set {
+                if ((this.UserIDField.Equals(value) != true)) {
+                    this.UserIDField = value;
+                    this.RaisePropertyChanged("UserID");
                 }
             }
         }

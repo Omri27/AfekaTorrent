@@ -18,6 +18,14 @@ using System;
 public partial class User
 {
 
+    public User()
+    {
+
+        this.Files = new HashSet<File>();
+
+    }
+
+
     public System.Guid UserID { get; set; }
 
     public string UserName { get; set; }
@@ -29,6 +37,12 @@ public partial class User
     public string DownloadFolder { get; set; }
 
     public bool IsEnabled { get; set; }
+
+    public bool IsActive { get; set; }
+
+
+
+    public virtual ICollection<File> Files { get; set; }
 
 }
 

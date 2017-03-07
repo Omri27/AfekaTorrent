@@ -14,6 +14,7 @@
       <xs:element minOccurs="0" name="FileType" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PeerHostName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PeerID" type="ser:guid" />
+      <xs:element minOccurs="0" name="UserID" type="ser:guid" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="File" nillable="true" type="tns:File" />

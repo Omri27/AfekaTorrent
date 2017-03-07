@@ -38,6 +38,12 @@ namespace FreeFile.DownloadManager.UserServer {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/UpdateFolders", ReplyAction="http://tempuri.org/UserService/UpdateFoldersResponse")]
         void UpdateFolders(string download, string shared, System.Guid UserId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/Logout", ReplyAction="http://tempuri.org/UserService/LogoutResponse")]
+        void Logout(System.Guid userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/GetActiveUsersCount", ReplyAction="http://tempuri.org/UserService/GetActiveUsersCountResponse")]
+        int GetActiveUsersCount();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -97,6 +103,14 @@ namespace FreeFile.DownloadManager.UserServer {
         
         public void UpdateFolders(string download, string shared, System.Guid UserId) {
             base.Channel.UpdateFolders(download, shared, UserId);
+        }
+        
+        public void Logout(System.Guid userId) {
+            base.Channel.Logout(userId);
+        }
+        
+        public int GetActiveUsersCount() {
+            return base.Channel.GetActiveUsersCount();
         }
     }
 }

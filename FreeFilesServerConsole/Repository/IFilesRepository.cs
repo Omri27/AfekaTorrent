@@ -10,5 +10,7 @@ namespace FreeFilesServerConsole.EF.Repository
         List<FreeFilesServerConsole.EF.File> SearchAvaiableFiles(string fileName);
         void AddFiles(List<FreeFilesServerConsole.EF.File> FilesList);
         List<FreeFilesServerConsole.EF.File> GetAllFiles();
+
+        List<EF.File> GetAllFilesByHostName(string hostname);
     }
 }

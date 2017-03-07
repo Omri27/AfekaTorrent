@@ -30,10 +30,14 @@ public partial class File
 
     public string PeerHostName { get; set; }
 
+    public System.Guid UserID { get; set; }
 
 
-    public virtual Peer Peer { get; set; }
 
-}
+        public virtual Peer Peer { get; set; }
+
+        public virtual User User { get; set; }
+
+    }
 
 }

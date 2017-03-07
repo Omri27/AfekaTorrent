@@ -24,10 +24,30 @@ namespace FreeFilesServerConsole.Repository
 
         public Guid Login(string userName, string password)
         {
+            Guid userId = Guid.NewGuid();
             var userList = this.GetAllUsers();
-            var user = userList.Where(x => x.UserName == userName && x.Password == password).FirstOrDefault();
-            return user != null ? user.UserID : Guid.Empty;
+            EF.User efUser = userList.Where(x=>x.UserName == userName && x.Password == password).FirstOrDefault();
+            if (efUser.IsActive == false && efUser.IsEnabled)
+            {
+                efUser.IsActive = true;
+                _freeFilesObjectContext.Users.ApplyCurrentValues(efUser);
+                _freeFilesObjectContext.SaveChanges();
+            }
+            else
+            {
+                efUser = null;
+            }
+           
+            return efUser != null ? efUser.UserID : Guid.Empty;
             
+        }
+
+        public void Logout(Guid userId)
+        {
+            EF.User efUser = _freeFilesObjectContext.Users.Where(o => o.UserID == userId).FirstOrDefault();
+            efUser.IsActive = false;
+            _freeFilesObjectContext.Users.ApplyCurrentValues(efUser);
+            _freeFilesObjectContext.SaveChanges();
         }
         public List<EF.User> GetAllUsers()
         {
@@ -67,7 +87,7 @@ namespace FreeFilesServerConsole.Repository
             efUser.UserName = user.UserName;
             efUser.Password = user.Password;
             efUser.IsEnabled = user.IsEnabled;
-            _freeFilesObjectContext.Users.Attach(efUser);
+            _freeFilesObjectContext.Users.ApplyCurrentValues(efUser);
             _freeFilesObjectContext.SaveChanges();
         }
 
@@ -84,6 +104,11 @@ namespace FreeFilesServerConsole.Repository
             _freeFilesObjectContext.Users.Attach(efUser);
             _freeFilesObjectContext.SaveChanges();
 
+        }
+
+        public int GetActiveUsersCount()
+        {
+            return _freeFilesObjectContext.Users.Where(x  => x.IsActive).Count();
         }
     }
 }

@@ -15,6 +15,7 @@
           <Property Name="PeerHostName" Type="varchar" MaxLength="100" />
           <Property Name="FileSize" Type="int" Nullable="false" />
           <Property Name="FileType" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Peers">
           <Key>
@@ -44,7 +45,22 @@
           <Property Name="SharedFolder" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="DownloadFolder" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="IsEnabled" Type="bit" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
+        <Association Name="fk">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Files" Type="Self.Files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Files_Peers">
           <End Role="Peers" Type="Self.Peers" Multiplicity="1" />
           <End Role="Files" Type="Self.Files" Multiplicity="*" />
@@ -62,6 +78,10 @@
           <EntitySet Name="Peers" EntityType="Self.Peers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk" Association="Self.fk">
+            <End Role="User" EntitySet="User" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
           <AssociationSet Name="FK_Files_Peers" Association="Self.FK_Files_Peers">
             <End Role="Peers" EntitySet="Peers" />
             <End Role="Files" EntitySet="Files" />
@@ -80,6 +100,10 @@
           </AssociationSet>
           <EntitySet Name="sysdiagrams" EntityType="FreeFilesModel.sysdiagram" />
           <EntitySet Name="Users" EntityType="FreeFilesModel.User" />
+          <AssociationSet Name="fk" Association="FreeFilesModel.fk">
+            <End Role="User" EntitySet="Users" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="File">
           <Key>
@@ -92,6 +116,8 @@
           <Property Name="FileType" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Peer" Relationship="FreeFilesModel.FK_Files_Peers" FromRole="Files" ToRole="Peers" />
           <Property Name="PeerHostName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="FreeFilesModel.fk" FromRole="File" ToRole="User" />
         </EntityType>
         <EntityType Name="Peer">
           <Key>
@@ -134,7 +160,23 @@
           <Property Name="SharedFolder" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="DownloadFolder" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="IsEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Files" Relationship="FreeFilesModel.fk" FromRole="User" ToRole="File" />
         </EntityType>
+        <Association Name="fk">
+          <End Type="FreeFilesModel.User" Role="User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="FreeFilesModel.File" Role="File" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="File">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -144,7 +186,8 @@
     <EntitySetMapping Name="Files">
       <EntityTypeMapping TypeName="IsTypeOf(FreeFilesModel.File)">
         <MappingFragment StoreEntitySet="Files">
-          <ScalarProperty Name="PeerHostName" ColumnName="PeerHostName" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PeerHostName" ColumnName="PeerHostName" />
                 <ScalarProperty Name="FileID" ColumnName="FileID" />
           <ScalarProperty Name="FileName" ColumnName="FileName" />
           <ScalarProperty Name="PeerID" ColumnName="PeerID" />
@@ -176,6 +219,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="FreeFilesModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="IsEnabled" ColumnName="IsEnabled" />
                 <ScalarProperty Name="DownloadFolder" ColumnName="DownloadFolder" />
                 <ScalarProperty Name="SharedFolder" ColumnName="SharedFolder" />

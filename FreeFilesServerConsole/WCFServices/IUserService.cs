@@ -21,6 +21,12 @@ namespace FreeFilesServerConsole.WCFServices
 
         int GetUsersCount();
 
+        int GetActiveUsersCount();
+
         void UpdateFolders(string download, string shared, Guid UserId);
+
+        void Logout(Guid userId);
+
+        
     }
 }

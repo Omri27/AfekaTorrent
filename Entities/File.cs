@@ -12,5 +12,7 @@ namespace Entities
         public string FileType { get; set; }
         public Guid PeerID { get; set; }
         public string PeerHostName { get; set; }
+
+        public System.Guid UserID { get; set; }
     }
 }

@@ -19,8 +19,12 @@ namespace FreeFilesServerConsole.Repository
 
         int GetUsersCount();
 
+        int GetActiveUsersCount();
+
         Guid Login(string userName, string password);
 
         void UpdateFolders(string download, string shared, Guid UserId);
+
+        void Logout(Guid userId);
     }
 }

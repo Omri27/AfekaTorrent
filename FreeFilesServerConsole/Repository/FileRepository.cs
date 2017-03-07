@@ -15,32 +15,66 @@ namespace FreeFilesServerConsole.EF.Repository
         }
         public List<FreeFilesServerConsole.EF.File> SearchAvaiableFiles(string fileName)
         {
-            var filesList = from files in _freeFilesObjectContext.Files
-                            join peers in _freeFilesObjectContext.Peers on files.PeerID equals peers.PeerID
-                            where files.FileName.Contains(fileName)
-                            select new {files,peers };
-            List<FreeFilesServerConsole.EF.File> List = new List<File>();
-            foreach (var item in filesList)
+
+            if (fileName.Equals("*"))
             {
-                File file = new File();
-                file.FileName = item.files.FileName;
-                file.FileSize = item.files.FileSize;
-                file.FileType = item.files.FileType;
-                file.PeerHostName = item.peers.PeerHostName;
-                file.PeerID = item.peers.PeerID;
-                List.Add(file);
+                var allfilesList = from files in _freeFilesObjectContext.Files
+                                   join users in _freeFilesObjectContext.Users on files.UserID equals users.UserID
+                                   join peers in _freeFilesObjectContext.Peers on files.PeerID equals peers.PeerID
+                                   
+                                   //where files.FileName.Contains(fileName)
+                                   where users.IsActive == true
+                                   select new { files, peers,users };
+                List<FreeFilesServerConsole.EF.File> List = new List<File>();
+                foreach (var item in allfilesList)
+                {
+                    File file = new File();
+                    file.FileName = item.files.FileName;
+                    file.FileSize = item.files.FileSize;
+                    file.FileType = item.files.FileType;
+                    file.UserID = item.files.UserID;
+                    file.PeerHostName = item.peers.PeerHostName;
+                    file.PeerID = item.peers.PeerID;
+                    List.Add(file);
+                }
+                return List;
             }
-            return List;
+            else
+            {
+                var filesList = from files in _freeFilesObjectContext.Files
+                                join peers in _freeFilesObjectContext.Peers on files.PeerID equals peers.PeerID
+                                join users in _freeFilesObjectContext.Users on files.UserID equals users.UserID
+                                where files.FileName.Contains(fileName) && users.IsActive == true
+                                select new { files, peers, users };
+                List<FreeFilesServerConsole.EF.File> List = new List<File>();
+                foreach (var item in filesList)
+                {
+                    File file = new File();
+                    file.FileName = item.files.FileName;
+                    file.FileSize = item.files.FileSize;
+                    file.FileType = item.files.FileType;
+                    file.UserID = item.files.UserID;
+                    file.PeerHostName = item.peers.PeerHostName;
+                    file.PeerID = item.peers.PeerID;
+                    List.Add(file);
+                }
+                return List;
+            }
+           // return List;
         }
 
         public void AddFiles(List<FreeFilesServerConsole.EF.File> FilesList)
         {
+            var files = GetAllFilesByHostName(FilesList.First().PeerHostName);
+            //var files = GetAllFiles();
+
             //_freeFilesObjectContext = new FreeFilesEntitiesContext();
             try
             {
                 foreach (FreeFilesServerConsole.EF.File file in FilesList)
                 {
-                    _freeFilesObjectContext.Files.AddObject(file);
+                    if(!files.Any(x=>x.FileName.Equals(file.FileName)))
+                        _freeFilesObjectContext.Files.AddObject(file);
                 }
             }
             catch (Exception exp)
@@ -71,7 +105,32 @@ namespace FreeFilesServerConsole.EF.Repository
         {
             var filesList = from files in _freeFilesObjectContext.Files
                             join peers in _freeFilesObjectContext.Peers on files.PeerID equals peers.PeerID
-                            select new { files, peers };
+                            join users in _freeFilesObjectContext.Users on files.UserID equals users.UserID
+                            //where files.FileName.Contains(fileName)
+                            where users.IsActive == true
+                            select new { files, peers,users };
+            List<FreeFilesServerConsole.EF.File> List = new List<File>();
+            foreach (var item in filesList)
+            {
+                File file = new File();
+                file.FileName = item.files.FileName;
+                file.FileSize = item.files.FileSize;
+                file.FileType = item.files.FileType;
+                file.UserID = item.files.UserID;
+                file.PeerHostName = item.peers.PeerHostName;
+                file.PeerID = item.peers.PeerID;
+                List.Add(file);
+            }
+            return List;
+        }
+        public List<EF.File> GetAllFilesByHostName(string hostname)
+        {
+            var filesList = from files in _freeFilesObjectContext.Files 
+                            join peers in _freeFilesObjectContext.Peers on files.PeerID equals peers.PeerID
+                            join users in _freeFilesObjectContext.Users on files.UserID equals users.UserID
+                            //where files.FileName.Contains(fileName)
+                            where files.PeerHostName == hostname && users.IsActive == true
+                            select new { files,users,peers };
             List<FreeFilesServerConsole.EF.File> List = new List<File>();
             foreach (var item in filesList)
             {
@@ -80,7 +139,8 @@ namespace FreeFilesServerConsole.EF.Repository
                 file.FileSize = item.files.FileSize;
                 file.FileType = item.files.FileType;
                 file.PeerHostName = item.peers.PeerHostName;
-                file.PeerID = item.peers.PeerID;
+                file.UserID = item.files.UserID;
+                file.PeerID = item.files.PeerID;
                 List.Add(file);
             }
             return List;
