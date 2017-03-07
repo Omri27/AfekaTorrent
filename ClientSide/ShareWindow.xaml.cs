@@ -171,18 +171,31 @@ namespace ClientSide
             Dispatcher.Invoke(new Action(() =>
             {
                 var lst = data.OrderBy(x => x.Item1.Part).ToList();
+                string  fileName = data.FirstOrDefault().Item1.FileSearchResult.FileName;
+                string[] split = fileName.Split(new string[] { "\\"}, StringSplitOptions.None);
+
+                string name = split[split.Length - 1];
+
                 var bytes = new List<byte>();
                 for (int i = 0; i < lst.Count; i++)
                 {
                     bytes.AddRange(lst[i].Item2);
                 }
-                var dialog = new SaveFileDialog();
-                dialog.FileName = System.IO.Path.GetFileNameWithoutExtension(data[0].Item1.FileSearchResult.FileName);
-                dialog.DefaultExt = data[0].Item1.FileSearchResult.FileType;
-                dialog.ShowDialog(this);
-                if (!string.IsNullOrEmpty(dialog.FileName))
+                //var dialog = new SaveFileDialog();
+                //dialog.FileName = System.IO.Path.GetFileNameWithoutExtension(data[0].Item1.FileSearchResult.FileName);
+                //dialog.DefaultExt = data[0].Item1.FileSearchResult.FileType;
+                //dialog.ShowDialog(this);
+                string path = System.IO.Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName, "MyConfig.xml");
+                XmlDocument doc = new XmlDocument();
+                doc.Load(path);
+                XmlNode root = doc.DocumentElement;
+                XmlNode DownloadFolderNode = root.SelectSingleNode("DownloadFolder");
+                var downloadFolder = DownloadFolderNode.InnerText;
+                if (!string.IsNullOrEmpty(downloadFolder))
+                    //if (!string.IsNullOrEmpty(dialog.FileName))
                 {
-                    System.IO.File.WriteAllBytes(dialog.FileName, bytes.ToArray());
+                    //System.IO.File.WriteAllBytes(dialog.Fi, bytes.ToArray());
+                    System.IO.File.WriteAllBytes(System.IO.Path.Combine(downloadFolder,name), bytes.ToArray());
                 }
                 MessageBox.Show(this, "File saved!");
             }));
