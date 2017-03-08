@@ -4,7 +4,7 @@
   <xs:complexType name="Peer">
     <xs:sequence>
       <xs:element minOccurs="0" name="Comments" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Files" nillable="true" type="tns:ArrayOfFile" />
+      <xs:element minOccurs="0" name="File" nillable="true" type="tns:ArrayOfFile" />
       <xs:element minOccurs="0" name="PeerHostName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="PeerID" type="ser:guid" />
     </xs:sequence>
@@ -33,7 +33,7 @@
   <xs:complexType name="User">
     <xs:sequence>
       <xs:element minOccurs="0" name="DownloadFolder" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="Files" nillable="true" type="tns:ArrayOfFile" />
+      <xs:element minOccurs="0" name="File" nillable="true" type="tns:ArrayOfFile" />
       <xs:element minOccurs="0" name="IsActive" type="xs:boolean" />
       <xs:element minOccurs="0" name="IsEnabled" type="xs:boolean" />
       <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />

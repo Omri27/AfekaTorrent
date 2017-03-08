@@ -16,7 +16,7 @@ namespace FreeFilesServerConsole.EF
     {
         public User()
         {
-            this.Files = new HashSet<File>();
+            this.File = new HashSet<File>();
         }
     
         public System.Guid UserID { get; set; }
@@ -27,6 +27,6 @@ namespace FreeFilesServerConsole.EF
         public bool IsEnabled { get; set; }
         public bool IsActive { get; set; }
     
-        public virtual ICollection<File> Files { get; set; }
+        public virtual ICollection<File> File { get; set; }
     }
 }

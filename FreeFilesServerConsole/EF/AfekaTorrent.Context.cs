@@ -13,10 +13,10 @@ namespace FreeFilesServerConsole.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class FreeFilesEntities1 : DbContext
+    public partial class AfekaTorrentEntities : DbContext
     {
-        public FreeFilesEntities1()
-            : base("name=FreeFilesEntities1")
+        public AfekaTorrentEntities()
+            : base("name=AfekaTorrentEntities")
         {
         }
     
@@ -25,9 +25,9 @@ namespace FreeFilesServerConsole.EF
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<File> Files { get; set; }
-        public DbSet<Peer> Peers { get; set; }
-        public DbSet<sysdiagram> sysdiagrams { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<File> File { get; set; }
+        public DbSet<Peer> Peer { get; set; }
+        public DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public DbSet<User> User { get; set; }
     }
 }

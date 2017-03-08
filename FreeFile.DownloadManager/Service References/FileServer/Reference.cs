@@ -26,7 +26,7 @@ namespace FreeFile.DownloadManager.FileServer {
         private string CommentsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private FreeFile.DownloadManager.FileServer.File[] FilesField;
+        private FreeFile.DownloadManager.FileServer.File[] FileField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PeerHostNameField;
@@ -58,14 +58,14 @@ namespace FreeFile.DownloadManager.FileServer {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public FreeFile.DownloadManager.FileServer.File[] Files {
+        public FreeFile.DownloadManager.FileServer.File[] File {
             get {
-                return this.FilesField;
+                return this.FileField;
             }
             set {
-                if ((object.ReferenceEquals(this.FilesField, value) != true)) {
-                    this.FilesField = value;
-                    this.RaisePropertyChanged("Files");
+                if ((object.ReferenceEquals(this.FileField, value) != true)) {
+                    this.FileField = value;
+                    this.RaisePropertyChanged("File");
                 }
             }
         }
@@ -292,7 +292,7 @@ namespace FreeFile.DownloadManager.FileServer {
         private string DownloadFolderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private FreeFile.DownloadManager.FileServer.File[] FilesField;
+        private FreeFile.DownloadManager.FileServer.File[] FileField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private bool IsActiveField;
@@ -336,14 +336,14 @@ namespace FreeFile.DownloadManager.FileServer {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public FreeFile.DownloadManager.FileServer.File[] Files {
+        public FreeFile.DownloadManager.FileServer.File[] File {
             get {
-                return this.FilesField;
+                return this.FileField;
             }
             set {
-                if ((object.ReferenceEquals(this.FilesField, value) != true)) {
-                    this.FilesField = value;
-                    this.RaisePropertyChanged("Files");
+                if ((object.ReferenceEquals(this.FileField, value) != true)) {
+                    this.FileField = value;
+                    this.RaisePropertyChanged("File");
                 }
             }
         }

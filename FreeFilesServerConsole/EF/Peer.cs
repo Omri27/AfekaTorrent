@@ -16,13 +16,13 @@ namespace FreeFilesServerConsole.EF
     {
         public Peer()
         {
-            this.Files = new HashSet<File>();
+            this.File = new HashSet<File>();
         }
     
         public System.Guid PeerID { get; set; }
         public string PeerHostName { get; set; }
         public string Comments { get; set; }
     
-        public virtual ICollection<File> Files { get; set; }
+        public virtual ICollection<File> File { get; set; }
     }
 }

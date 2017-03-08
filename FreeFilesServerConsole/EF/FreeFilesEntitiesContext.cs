@@ -11,7 +11,7 @@ namespace FreeFilesServerConsole.EF
         private ObjectSet<FreeFilesServerConsole.EF.Peer> _peers;
         private ObjectSet<FreeFilesServerConsole.EF.User> _users;
         public FreeFilesEntitiesContext()
-            : base("name=FreeFilesEntities", "FreeFilesEntities1")
+            : base("name=AfekaTorrentEntities", "AfekaTorrentEntities")
         {
             _files = CreateObjectSet<FreeFilesServerConsole.EF.File>();
             _peers = CreateObjectSet<FreeFilesServerConsole.EF.Peer>();

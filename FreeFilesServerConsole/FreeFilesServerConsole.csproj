@@ -67,33 +67,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EF\AfekaTorrent.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AfekaTorrent.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\AfekaTorrent.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AfekaTorrent.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EF\AfekaTorrent.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AfekaTorrent.edmx</DependentUpon>
+    </Compile>
     <Compile Include="EF\File.cs">
-      <DependentUpon>FilesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\FilesModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FilesModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\FilesModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FilesModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EF\FilesModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>FilesModel.edmx</DependentUpon>
+      <DependentUpon>AfekaTorrent.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\FreeFilesEntitiesContext.cs" />
     <Compile Include="EF\Peer.cs">
-      <DependentUpon>FilesModel.tt</DependentUpon>
+      <DependentUpon>AfekaTorrent.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\sysdiagram.cs">
-      <DependentUpon>FilesModel.tt</DependentUpon>
+    <Compile Include="EF\sysdiagrams.cs">
+      <DependentUpon>AfekaTorrent.tt</DependentUpon>
     </Compile>
     <Compile Include="EF\User.cs">
-      <DependentUpon>FilesModel.tt</DependentUpon>
+      <DependentUpon>AfekaTorrent.tt</DependentUpon>
     </Compile>
     <Compile Include="IUnitOfWork.cs" />
     <Compile Include="Repository\FileRepository.cs" />
@@ -135,22 +135,12 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="EF\FilesModel.edmx">
+    <EntityDeploy Include="EF\AfekaTorrent.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>FilesModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>AfekaTorrent.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="EF\FilesModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FilesModel.edmx</DependentUpon>
-      <LastGenOutput>FilesModel.Context.cs</LastGenOutput>
-    </None>
-    <None Include="EF\FilesModel.edmx.diagram">
-      <DependentUpon>FilesModel.edmx</DependentUpon>
-    </None>
-    <None Include="EF\FilesModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>FilesModel.edmx</DependentUpon>
-      <LastGenOutput>FilesModel.cs</LastGenOutput>
+    <None Include="EF\AfekaTorrent.edmx.diagram">
+      <DependentUpon>AfekaTorrent.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -158,10 +148,17 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="EF\FilesModel.edmx.sql.tmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="EF\FilesModel.edmx.sql" />
+    <Content Include="EF\AfekaTorrent.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AfekaTorrent.edmx</DependentUpon>
+      <LastGenOutput>AfekaTorrent.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EF\AfekaTorrent.edmx.sql" />
+    <Content Include="EF\AfekaTorrent.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>AfekaTorrent.edmx</DependentUpon>
+      <LastGenOutput>AfekaTorrent.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

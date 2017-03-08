@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 03/08/2017 15:46:10
--- Generated from EDMX file: C:\User\Omri\Desktop\AfekaTorrent\FreeFilesServerConsole\EF\FilesModel.edmx
+-- Date Created: 03/08/2017 17:37:29
+-- Generated from EDMX file: C:\Users\Omri\Desktop\AfekaTorrent\FreeFilesServerConsole\EF\AfekaTorrent.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [FreeFiles];
+USE [AfekaTorrent];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -17,22 +17,22 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[FK_fk]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Files] DROP CONSTRAINT [FK_fk];
-GO
 IF OBJECT_ID(N'[dbo].[FK_Files_Peers]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Files] DROP CONSTRAINT [FK_Files_Peers];
+    ALTER TABLE [dbo].[File] DROP CONSTRAINT [FK_Files_Peers];
+GO
+IF OBJECT_ID(N'[dbo].[FK_fk]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[File] DROP CONSTRAINT [FK_fk];
 GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
-IF OBJECT_ID(N'[dbo].[Files]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Files];
+IF OBJECT_ID(N'[dbo].[File]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[File];
 GO
-IF OBJECT_ID(N'[dbo].[Peers]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Peers];
+IF OBJECT_ID(N'[dbo].[Peer]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Peer];
 GO
 IF OBJECT_ID(N'[dbo].[sysdiagrams]', 'U') IS NOT NULL
     DROP TABLE [dbo].[sysdiagrams];
@@ -45,8 +45,8 @@ GO
 -- Creating all tables
 -- --------------------------------------------------
 
--- Creating table 'Files'
-CREATE TABLE [dbo].[Files] (
+-- Creating table 'File'
+CREATE TABLE [dbo].[File] (
     [FileID] uniqueidentifier  NOT NULL,
     [FileName] varchar(500)  NOT NULL,
     [PeerID] uniqueidentifier  NOT NULL,
@@ -57,8 +57,8 @@ CREATE TABLE [dbo].[Files] (
 );
 GO
 
--- Creating table 'Peers'
-CREATE TABLE [dbo].[Peers] (
+-- Creating table 'Peer'
+CREATE TABLE [dbo].[Peer] (
     [PeerID] uniqueidentifier  NOT NULL,
     [PeerHostName] varchar(100)  NULL,
     [Comments] varchar(max)  NULL
@@ -91,15 +91,15 @@ GO
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
 
--- Creating primary key on [FileID] in table 'Files'
-ALTER TABLE [dbo].[Files]
-ADD CONSTRAINT [PK_Files]
+-- Creating primary key on [FileID] in table 'File'
+ALTER TABLE [dbo].[File]
+ADD CONSTRAINT [PK_File]
     PRIMARY KEY CLUSTERED ([FileID] ASC);
 GO
 
--- Creating primary key on [PeerID] in table 'Peers'
-ALTER TABLE [dbo].[Peers]
-ADD CONSTRAINT [PK_Peers]
+-- Creating primary key on [PeerID] in table 'Peer'
+ALTER TABLE [dbo].[Peer]
+ADD CONSTRAINT [PK_Peer]
     PRIMARY KEY CLUSTERED ([PeerID] ASC);
 GO
 
@@ -119,23 +119,23 @@ GO
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
 
--- Creating foreign key on [PeerID] in table 'Files'
-ALTER TABLE [dbo].[Files]
+-- Creating foreign key on [PeerID] in table 'File'
+ALTER TABLE [dbo].[File]
 ADD CONSTRAINT [FK_Files_Peers]
     FOREIGN KEY ([PeerID])
-    REFERENCES [dbo].[Peers]
+    REFERENCES [dbo].[Peer]
         ([PeerID])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_Files_Peers'
 CREATE INDEX [IX_FK_Files_Peers]
-ON [dbo].[Files]
+ON [dbo].[File]
     ([PeerID]);
 GO
 
--- Creating foreign key on [UserID] in table 'Files'
-ALTER TABLE [dbo].[Files]
+-- Creating foreign key on [UserID] in table 'File'
+ALTER TABLE [dbo].[File]
 ADD CONSTRAINT [FK_fk]
     FOREIGN KEY ([UserID])
     REFERENCES [dbo].[User]
@@ -145,7 +145,7 @@ GO
 
 -- Creating non-clustered index for FOREIGN KEY 'FK_fk'
 CREATE INDEX [IX_FK_fk]
-ON [dbo].[Files]
+ON [dbo].[File]
     ([UserID]);
 GO
 
