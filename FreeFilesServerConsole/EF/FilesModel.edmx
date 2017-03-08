@@ -12,9 +12,9 @@
           <Property Name="FileID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FileName" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="PeerID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="PeerHostName" Type="varchar" MaxLength="100" />
           <Property Name="FileSize" Type="int" Nullable="false" />
           <Property Name="FileType" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="PeerHostName" Type="varchar" MaxLength="100" />
           <Property Name="UserID" Type="uniqueidentifier" Nullable="false" />
         </EntityType>
         <EntityType Name="Peers">
@@ -47,7 +47,19 @@
           <Property Name="IsEnabled" Type="bit" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
-        <Association Name="fk">
+        <Association Name="FK_Files_Peers">
+          <End Role="Peers" Type="Self.Peers" Multiplicity="1" />
+          <End Role="Files" Type="Self.Files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Peers">
+              <PropertyRef Name="PeerID" />
+            </Principal>
+            <Dependent Role="Files">
+              <PropertyRef Name="PeerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_fk">
           <End Role="User" Type="Self.User" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -61,29 +73,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Files_Peers">
-          <End Role="Peers" Type="Self.Peers" Multiplicity="1" />
-          <End Role="Files" Type="Self.Files" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Peers">
-              <PropertyRef Name="PeerID" />
-            </Principal>
-            <Dependent Role="Files">
-              <PropertyRef Name="PeerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="FreeFilesModelStoreContainer">
           <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Peers" EntityType="Self.Peers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="fk" Association="Self.fk">
-            <End Role="User" EntitySet="User" />
-            <End Role="Files" EntitySet="Files" />
-          </AssociationSet>
           <AssociationSet Name="FK_Files_Peers" Association="Self.FK_Files_Peers">
             <End Role="Peers" EntitySet="Peers" />
+            <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_fk" Association="Self.FK_fk">
+            <End Role="User" EntitySet="User" />
             <End Role="Files" EntitySet="Files" />
           </AssociationSet>
         </EntityContainer>

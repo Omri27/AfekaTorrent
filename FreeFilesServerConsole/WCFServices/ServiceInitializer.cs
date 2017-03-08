@@ -36,11 +36,13 @@ namespace FreeFilesServerConsole.WCFServices
                 new BasicHttpBinding(), "");
             UserHost.AddServiceEndpoint(typeof(UserService),
                 new BasicHttpBinding(), "");
-            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
-            smb.HttpGetEnabled = true;
-            Host.Description.Behaviors.Add(smb);
+            ServiceMetadataBehavior smb1 = new ServiceMetadataBehavior();
+            ServiceMetadataBehavior smb2 = new ServiceMetadataBehavior();
+            smb1.HttpGetEnabled = true;
+            smb2.HttpGetEnabled = true;
+            Host.Description.Behaviors.Add(smb1);
             Host.Open();
-            UserHost.Description.Behaviors.Add(smb);
+            UserHost.Description.Behaviors.Add(smb2);
             UserHost.Open();
         }
     }
