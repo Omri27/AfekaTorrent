@@ -80,51 +80,33 @@
     <None Include="app.config" />
     <None Include="Properties\DataSources\Entities.File.datasource" />
     <None Include="Properties\DataSources\Entities.User.datasource" />
-    <None Include="Service References\FileServer\FilesService.wsdl" />
-    <None Include="Service References\FileServer\item.xsd">
+    <None Include="Service References\FileServer\Entities.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\FileServer\item1.xsd">
+    <None Include="Service References\FileServer\FreeFilesServerConsole.EF.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\FileServer\item2.xsd">
+    <None Include="Service References\FileServer\service.wsdl" />
+    <None Include="Service References\FileServer\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\FileServer\item3.xsd">
+    <None Include="Service References\FileServer\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\UserServer\item.xsd">
+    <None Include="Service References\UserServer\Entities.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\UserServer\item1.xsd">
+    <None Include="Service References\UserServer\service.wsdl" />
+    <None Include="Service References\UserServer\service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\UserServer\item2.xsd">
+    <None Include="Service References\UserServer\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\UserServer\UserService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\FileServer\" />
     <WCFMetadataStorage Include="Service References\UserServer\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\UserServer\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\UserServer\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\UserServer\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\UserServer\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\FileServer\item.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\FileServer\configuration91.svcinfo" />
@@ -134,6 +116,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\FileServer\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserServer\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserServer\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserServer\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

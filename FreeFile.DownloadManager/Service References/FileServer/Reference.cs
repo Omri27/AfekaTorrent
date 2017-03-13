@@ -304,6 +304,9 @@ namespace FreeFile.DownloadManager.FileServer {
         private string PasswordField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string RolesField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string SharedFolderField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -383,6 +386,19 @@ namespace FreeFile.DownloadManager.FileServer {
                 if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
                     this.PasswordField = value;
                     this.RaisePropertyChanged("Password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Roles {
+            get {
+                return this.RolesField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.RolesField, value) != true)) {
+                    this.RolesField = value;
+                    this.RaisePropertyChanged("Roles");
                 }
             }
         }
