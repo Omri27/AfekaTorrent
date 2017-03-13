@@ -26,6 +26,7 @@ namespace FreeFilesServerConsole.EF
         public string DownloadFolder { get; set; }
         public bool IsEnabled { get; set; }
         public bool IsActive { get; set; }
+        public string Roles { get; set; }
     
         public virtual ICollection<File> File { get; set; }
     }

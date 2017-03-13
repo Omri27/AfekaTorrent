@@ -28,7 +28,7 @@ namespace FreeFile.DownloadManager.Abstract
             /* Create
              *searchEngine;             
             */
-            this.searchEngine = new Searchengine();
+            
         }
         static readonly object sharedObject = new object();
         static Factory instance;
@@ -49,13 +49,10 @@ namespace FreeFile.DownloadManager.Abstract
                 return instance;
             }
         }
-        ISearchEngine searchEngine;
+        
         ITransferEngine transferEngine;
         IFileProviderServer fileProviderServer;
-        public ISearchEngine CreateSeachEngine()
-        {
-            return searchEngine;
-        }
+     
         public ITransferEngine CreateTransferEngine()
         {
             return transferEngine;

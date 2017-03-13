@@ -27,10 +27,10 @@ namespace FreeFilesServerConsole.WCFServices
 
         [OperationContract]
 
-        public Guid Login(string userName, string password)
+        public Entities.User Login(string userName, string password)
         {
             UserRepository userRepository = new UserRepository(_freeFilesObjectContext as FreeFilesServerConsole.IUnitOfWork);
-            return userRepository.Login(userName, password);
+            return internalSingleUserToEntityUser(userRepository.Login(userName, password));
         }
 
         [OperationContract]
@@ -55,6 +55,7 @@ namespace FreeFilesServerConsole.WCFServices
             EFUser.DownloadFolder = user.DownloadFolder;
             EFUser.UserName = user.UserName;
             EFUser.IsEnabled = user.IsEnabled;
+            EFUser.Roles = user.Roles;
             return EFUser;
         }
 
@@ -68,6 +69,8 @@ namespace FreeFilesServerConsole.WCFServices
                 user.UserID = EFUser.UserID;
                 user.Password = EFUser.Password;
                 user.IsEnabled = EFUser.IsEnabled;
+                user.IsActive = EFUser.IsActive;
+                user.Roles = EFUser.Roles;
                 user.SharedFolder = EFUser.SharedFolder;
                 user.DownloadFolder = EFUser.DownloadFolder;
                 entityFileTypeList.Add(user);
@@ -77,16 +80,23 @@ namespace FreeFilesServerConsole.WCFServices
 
         private Entities.User internalSingleUserToEntityUser(EF.User EFUser)
         {
-           
+            if (EFUser != null)
+            {
                 Entities.User user = new Entities.User();
                 user.UserName = EFUser.UserName;
                 user.UserID = EFUser.UserID;
                 user.Password = EFUser.Password;
                 user.IsEnabled = EFUser.IsEnabled;
+                user.Roles = EFUser.Roles;
                 user.SharedFolder = EFUser.SharedFolder;
                 user.DownloadFolder = EFUser.DownloadFolder;
-            return user;
-        }
+                return user;
+            }
+            else
+            {
+                return null;
+            }
+    }
 
         [OperationContract]
         public void DeleteUser(Guid UserID)

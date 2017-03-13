@@ -10,13 +10,13 @@ namespace FreeFilesServerConsole.WCFServices
     {
         void AddUser(Entities.User user);
 
-        Guid Login(string userName, string password);
+        Entities.User Login(string userName, string password);
 
         List<Entities.User> GetAllUsers();
 
         void DeleteUser(Guid UserID);
 
-        User GetUser(Guid UserID);
+         User  GetUser(Guid UserID);
         void EditUser(Entities.User user);
 
         int GetUsersCount();

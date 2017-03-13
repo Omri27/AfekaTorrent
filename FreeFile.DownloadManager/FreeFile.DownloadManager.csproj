@@ -46,12 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\Factory.cs" />
-    <Compile Include="Abstract\FileSearchResult.cs" />
     <Compile Include="Abstract\IFileProviderServer.cs" />
-    <Compile Include="Abstract\ISearchEngine.cs" />
     <Compile Include="Abstract\ITransferEngine.cs" />
     <Compile Include="Abstract\ITransferEngineFactory.cs" />
-    <Compile Include="Abstract\Searchengine.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DataContainerEventArg.cs" />
     <Compile Include="FileDownloadException.cs" />

@@ -35,11 +35,7 @@ namespace FreeFiles.TransferEngine.WCFPNRP.WCFFileTransferClient
 
             }
 
-            public byte[] TransferFile(string fileName,string hash, long partNumber)
-            {
-                byte[] _bytes = base.Channel.TransferFileByHash(fileName, hash, partNumber);
-                return _bytes;
-            }
+           
 
             public byte[] TransferFile(string fileName, long partNumber, long partCount, long mod)
             {

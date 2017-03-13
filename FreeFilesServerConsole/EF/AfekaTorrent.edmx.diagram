@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="e931535897764b59be1db07949ea77af" Name="Diagram1">
-        <EntityTypeShape EntityType="AfekaTorrentModel.File" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="AfekaTorrentModel.Peer" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AfekaTorrentModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="AfekaTorrentModel.User" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+      <Diagram DiagramId="e931535897764b59be1db07949ea77af" Name="Diagram1" ZoomLevel="80">
+        <EntityTypeShape EntityType="AfekaTorrentModel.File" Width="1.5" PointX="2.875" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AfekaTorrentModel.Peer" Width="1.5" PointX="0.625" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="AfekaTorrentModel.sysdiagrams" Width="1.5" PointX="9.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="AfekaTorrentModel.User" Width="1.5" PointX="5.75" PointY="0.5" IsExpanded="true" />
         <AssociationConnector Association="AfekaTorrentModel.FK_Files_Peers" ManuallyRouted="false" />
         <AssociationConnector Association="AfekaTorrentModel.FK_fk" ManuallyRouted="false" />
       </Diagram>

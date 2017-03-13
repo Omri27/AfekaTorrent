@@ -21,7 +21,7 @@ namespace FreeFilesServerConsole.Repository
 
         int GetActiveUsersCount();
 
-        Guid Login(string userName, string password);
+         EF.User Login(string userName, string password);
 
         void UpdateFolders(string download, string shared, Guid UserId);
 

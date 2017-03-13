@@ -20,6 +20,7 @@ using FreeFile.DownloadManager.UserServer;
 using FreeFile.DownloadManager.FileServer;
 using System.Xml;
 using FreeFile.DownloadManager.FileServer;
+using File = Entities.File;
 
 namespace ClientSide
 {
@@ -117,9 +118,26 @@ namespace ClientSide
         {
             if (!string.IsNullOrWhiteSpace(search_TextBox.Text))
             {
-                List<Entities.File> foundFileInfoList = fileTransferManager.SearchFileByName(search_TextBox.Text, user);
-                dataGrid.ItemsSource = foundFileInfoList;
-                dataGrid.DataContext = foundFileInfoList;
+
+                FilesServiceClient fileServiceClient = new FilesServiceClient();
+
+                List<Entities.File> filesList = new List<File>();
+                foreach (var file in fileServiceClient.SearchAvaiableFiles(search_TextBox.Text, user))
+                {
+                    Entities.File currentFile = new File();
+                    currentFile.FileName = file.FileName;
+                    currentFile.FileSize = file.FileSize;
+                    currentFile.FileType = file.FileType;
+                    currentFile.PeerID = file.PeerID;
+                    currentFile.PeerHostName = file.PeerHostName;
+                    currentFile.UserID = file.UserID;
+                    filesList.Add(currentFile);
+                }
+                dataGrid.ItemsSource = filesList;
+                dataGrid.DataContext = filesList;
+                //List<Entities.File> foundFileInfoList = fileTransferManager.SearchFileByName(search_TextBox.Text, user);
+                //dataGrid.ItemsSource = foundFileInfoList;
+                //dataGrid.DataContext = foundFileInfoList;
                 //this.dataGrid.DataContext = foundFileInfoList;
             }
         }

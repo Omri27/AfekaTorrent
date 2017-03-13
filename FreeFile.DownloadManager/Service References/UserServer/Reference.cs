@@ -19,7 +19,7 @@ namespace FreeFile.DownloadManager.UserServer {
         void AddUser(Entities.User user);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/Login", ReplyAction="http://tempuri.org/UserService/LoginResponse")]
-        System.Guid Login(string userName, string password);
+        Entities.User Login(string userName, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UserService/GetAllUsers", ReplyAction="http://tempuri.org/UserService/GetAllUsersResponse")]
         Entities.User[] GetAllUsers();
@@ -77,7 +77,7 @@ namespace FreeFile.DownloadManager.UserServer {
             base.Channel.AddUser(user);
         }
         
-        public System.Guid Login(string userName, string password) {
+        public Entities.User Login(string userName, string password) {
             return base.Channel.Login(userName, password);
         }
         

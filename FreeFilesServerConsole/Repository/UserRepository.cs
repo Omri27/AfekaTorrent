@@ -22,24 +22,20 @@ namespace FreeFilesServerConsole.Repository
             _freeFilesObjectContext.Users.AddObject(user);
         }
 
-        public Guid Login(string userName, string password)
+        public  EF.User Login(string userName, string password)
         {
             Guid userId = Guid.NewGuid();
             var userList = this.GetAllUsers();
-            EF.User efUser = userList.Where(x=>x.UserName == userName && x.Password == password).FirstOrDefault();
-            if (efUser.IsActive == false && efUser.IsEnabled)
+            EF.User efUser = userList.FirstOrDefault(x => x.UserName.Equals(userName) && x.Password.Equals(password));
+            if (efUser != null && !efUser.IsActive && efUser.IsEnabled)
             {
                 efUser.IsActive = true;
                 _freeFilesObjectContext.Users.ApplyCurrentValues(efUser);
                 _freeFilesObjectContext.SaveChanges();
             }
-            else
-            {
-                efUser = null;
-            }
-           
-            return efUser != null ? efUser.UserID : Guid.Empty;
-            
+         
+            return efUser;
+
         }
 
         public void Logout(Guid userId)
@@ -65,6 +61,7 @@ namespace FreeFilesServerConsole.Repository
                 user.IsEnabled = item.users.IsEnabled;
                 user.SharedFolder = item.users.SharedFolder;
                 user.DownloadFolder = item.users.DownloadFolder;
+                user.Roles = item.users.Roles;
                 List.Add(user);
             }
             return List;

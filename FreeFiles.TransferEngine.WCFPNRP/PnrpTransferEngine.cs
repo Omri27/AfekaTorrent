@@ -29,36 +29,7 @@ namespace FreeFiles.TransferEngine.WCFPNRP
             }
         }
 
-        byte[] ITransferEngine.GetFile(string filename, string hash, long partNumber, string hostName)
-        {
-            var peers = pnrpManager.ResolveByPeerHostName(hostName);
-            byte[] data = null;
-            if (peers != null && peers.Count > 0)
-            {
-                bool dataretrived = false;
-                FileTransferServiceClientClass Client = null;
-                System.ServiceModel.Channels.Binding netBinding = new NetTcpBinding(SecurityMode.None);
-
-                //foreach (var peer in peers)
-                //{
-                EndpointAddress endpointAddress = new EndpointAddress(string.Format("net.tcp://{0}:{1}/TransferEngine", peers.FirstOrDefault().HostName, peers.FirstOrDefault().Port));
-                    Client = new FileTransferServiceClientClass(netBinding, endpointAddress);
-                    try
-                    {
-                        data = Client.TransferFile(filename, hash, partNumber);
-                        dataretrived = true;
-                        //break;
-                    }
-                    catch
-                    {
-                    }
-                //}
-                if (!dataretrived) throw new HostUnreachableException(hostName);
-            }
-            else throw new HostUnreachableException(hostName);
-            return data;
-
-        }
+    
         byte[] ITransferEngine.GetFile(string filename, long partNumber, string hostName, long partCount, long mod)
         {
             var peers = pnrpManager.ResolveByPeerHostName(hostName);

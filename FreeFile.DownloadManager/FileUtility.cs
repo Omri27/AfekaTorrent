@@ -11,23 +11,7 @@ namespace FreeFile.DownloadManager
     {
         
         const int FiePartsize = 10240;
-        public static string FindFileByHash(string path,string fileName ,string hash)
-        {
-            var files = Directory.GetFiles(Config.SharedFolder, fileName, SearchOption.AllDirectories);
-            foreach (var item in files)
-            {
-                SHA512 sha512 = SHA512.Create();
-                using (FileStream fstream = new FileStream(item, FileMode.Open, FileAccess.Read))
-                {
-                    var computedhash = sha512.ComputeHash(fstream);                    
-                    if (string.Compare(BitConverter.ToString(computedhash, 0), hash, true)==0)
-                    {
-                        return item;
-                    }
-                }    
-            }
-            return null;
-        }
+       
 
         
 

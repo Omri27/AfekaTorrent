@@ -53,8 +53,8 @@ namespace ClientSide
 
             UserServiceClient usc = new UserServiceClient();
 
-            var loginGuid = usc.Login(UserName_textBox.Text, passwordBox.Password);
-            if (!loginGuid.Equals(Guid.Empty))
+            var user = usc.Login(UserName_textBox.Text, passwordBox.Password);
+            if (user!=null)
             {
                 if(DownloadFolder_textBox.Text.Equals("") || SharedFolder_textBox.Text.Equals(""))
                 {
@@ -90,8 +90,8 @@ namespace ClientSide
                     downloadFolderNode.InnerText = DownloadFolder_textBox.Text;
 
                     doc.Save(path);
-                    usc.UpdateFolders(downloadFolderNode.InnerText, SharedFolderNode.InnerText, loginGuid);
-                    ShareWindow shareWindow = new ShareWindow(loginGuid);
+                    usc.UpdateFolders(downloadFolderNode.InnerText, SharedFolderNode.InnerText, user.UserID);
+                    ShareWindow shareWindow = new ShareWindow(user.UserID);
                     shareWindow.Show();
                     this.Close();
 

@@ -9,9 +9,7 @@ namespace FreeFiles.TransferEngine.WCFPNRP.WCFFileTransferService
     [ServiceContractAttribute]
      interface IFileTransferService
     {
-        [OperationContractAttribute(IsOneWay = false)]
-        byte[] TransferFileByHash(string fileName,string hash, long partNumber);
-        
+      
         [OperationContractAttribute(IsOneWay = false)]
         byte[] TransferFile(string fileName, long partNumber , long countPart , long mod);
     }

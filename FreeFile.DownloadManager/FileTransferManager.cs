@@ -33,15 +33,11 @@ namespace FreeFile.DownloadManager
         const long FilePartSizeInByte = 10240;
         
         ITransferEngine transferEngine;
-        
-        ISearchEngine searchEngine;
-        
-        List<FileSearchResult> resultOfSameHashSearch;        
+   
 
         public FileTransferManager()
         {
             this.transferEngine = Factory.Instance.CreateTransferEngine();
-            this.searchEngine = Factory.Instance.CreateSeachEngine();
         }
 
 
@@ -79,23 +75,10 @@ namespace FreeFile.DownloadManager
             }
         }
     
-        private void searchForSameFileBaseOnHash(object state)
-        {
-            var fileSearchResult =state as FileSearchResult;
-            resultOfSameHashSearch = searchEngine.SearchByFileHashCode(fileSearchResult.Hash);
-            onSynchronizedReadOnlyCollection(resultOfSameHashSearch);
-        }
+      
        
-        public event EventHandler<DataContainerEventArg<List<FileSearchResult>>> ExtraServerHostFondBaseOnHashSearch;
         
-        private void onSynchronizedReadOnlyCollection(List<FileSearchResult> searchResult)
-        {
-            if (ExtraServerHostFondBaseOnHashSearch != null)
-            {
-                ExtraServerHostFondBaseOnHashSearch(this, new DataContainerEventArg<List<FileSearchResult>>(searchResult));
-            }
-        }
-
+   
         public event EventHandler<DataContainerEventArg<FilePartData>> FilePartDownloaded;
         
         private void onFilePartDownloaded(FilePartData filePartData)
@@ -106,16 +89,10 @@ namespace FreeFile.DownloadManager
             }
         }
 
-        public List<Entities.File> SearchFileByName(string fileName, Guid userId)
-        {
-           return this.searchEngine.Search(fileName, userId);
-        }
 
         public void Download(Entities.File fileSearchResult)
         {
-            //var action =new Action<object>(searchForSameFileBaseOnHash);
-            //Task searchForSameFileBaseOnHashTask = new Task(action, fileSearchResult);
-            //searchForSameFileBaseOnHashTask.Start();
+          
 
             var downloadAction = new Action<object>(StartDownload);
             Task downloadActionTask = new Task(downloadAction, fileSearchResult);

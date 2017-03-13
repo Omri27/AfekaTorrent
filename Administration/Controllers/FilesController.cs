@@ -11,6 +11,7 @@ namespace Administration.Controllers
     public class FilesController : Controller
     {
         // GET: Files
+        [Authorize(Roles = "ADMIN")]
         public ActionResult Files(string SearchString)
         {
             
