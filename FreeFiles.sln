@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeFiles.TransferEngine.WCFPNRP", "FreeFiles.TransferEngine.WCFPNRP\FreeFiles.TransferEngine.WCFPNRP.csproj", "{4374A8E0-988E-4DF0-AC9D-0AF0FA8B0FDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransferEngine.WCFPNRP", "TransferEngine.WCFPNRP\TransferEngine.WCFPNRP.csproj", "{4374A8E0-988E-4DF0-AC9D-0AF0FA8B0FDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeFile.DownloadManager", "FreeFile.DownloadManager\FreeFile.DownloadManager.csproj", "{BDF446F0-3E99-4EE0-A154-EF11606794CA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadManager", "DownloadManager\DownloadManager.csproj", "{BDF446F0-3E99-4EE0-A154-EF11606794CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{49240D90-C088-4CEB-94ED-631F248D8BE6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientSide", "ClientSide\ClientSide.csproj", "{4CBAE899-6988-4CEF-A45A-B86FCAB39B75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeFilesServerConsole", "FreeFilesServerConsole\FreeFilesServerConsole.csproj", "{D830EBC2-14AD-4CBA-B539-A1FC38DEB4D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerConsole", "ServerConsole\ServerConsole.csproj", "{D830EBC2-14AD-4CBA-B539-A1FC38DEB4D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Administration", "Administration\Administration.csproj", "{D885189B-AFEA-4302-8C17-4EDCA501AB98}"
 EndProject

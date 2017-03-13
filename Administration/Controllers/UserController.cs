@@ -1,6 +1,6 @@
 ﻿using Administration.Models;
 using Entities;
-using FreeFile.DownloadManager.UserServer;
+using DownloadManager.UserServer;
 using System;
 using System.Collections.Generic;
 using System.IO;

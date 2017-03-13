@@ -1,5 +1,5 @@
-﻿using FreeFile.DownloadManager.UserServer;
-using FreeFile.DownloadManager.FileServer;
+﻿using DownloadManager.UserServer;
+using DownloadManager.FileServer;
 using System;
 using System.Windows;
 using System.Windows.Forms;

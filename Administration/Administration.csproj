@@ -291,9 +291,9 @@
       <Project>{49240d90-c088-4ceb-94ed-631f248d8be6}</Project>
       <Name>Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FreeFile.DownloadManager\FreeFile.DownloadManager.csproj">
+    <ProjectReference Include="..\DownloadManager\DownloadManager.csproj">
       <Project>{BDF446F0-3E99-4EE0-A154-EF11606794CA}</Project>
-      <Name>FreeFile.DownloadManager</Name>
+      <Name>DownloadManager</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

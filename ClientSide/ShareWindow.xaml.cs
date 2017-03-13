@@ -11,15 +11,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using FreeFile.DownloadManager;
-using FreeFiles.TransferEngine.WCFPNRP;
 using Microsoft.Win32;
 using System.IO;
-using FreeFilesServerConsole.WCFServices;
-using FreeFile.DownloadManager.UserServer;
-using FreeFile.DownloadManager.FileServer;
+using DownloadManager.UserServer;
+using DownloadManager.FileServer;
 using System.Xml;
-using FreeFile.DownloadManager.FileServer;
+using DownloadManager;
+
 using File = Entities.File;
 
 namespace ClientSide
@@ -31,7 +29,7 @@ namespace ClientSide
     {
          Guid user;
         FileTransferManager fileTransferManager;
-        List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>> data;
+        List<Tuple<FileTransferManager.DownloadParameter, Byte[]>> data;
         public ShareWindow(Guid user)
         {
             this.user = user;
@@ -101,8 +99,8 @@ namespace ClientSide
 
         void fileTransferManager_FilePartDownloaded(object sender, DataContainerEventArg<FileTransferManager.FilePartData> e)
         {
-           // List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>> data = new List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>>();
-            data.Add(new Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>(e.Data.DownloadParameter, e.Data.FileBytes));
+           // List<Tuple<DownloadManager.FileTransferManager.DownloadParameter, Byte[]>> data = new List<Tuple<DownloadManager.FileTransferManager.DownloadParameter, Byte[]>>();
+            data.Add(new Tuple<FileTransferManager.DownloadParameter, Byte[]>(e.Data.DownloadParameter, e.Data.FileBytes));
             if (e.Data.DownloadParameter.AllPartsCount == e.Data.DownloadParameter.Part)
             {
                 saveFile(data);
@@ -177,7 +175,7 @@ namespace ClientSide
 
         private void dataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            data = new List<Tuple<FreeFile.DownloadManager.FileTransferManager.DownloadParameter, Byte[]>>();
+            data = new List<Tuple<FileTransferManager.DownloadParameter, Byte[]>>();
             Entities.File fileSearchResult = dataGrid.SelectedItem as Entities.File;
             this.fileTransferManager.Download(fileSearchResult);
         }

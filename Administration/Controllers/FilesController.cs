@@ -1,5 +1,5 @@
-﻿using FreeFile.DownloadManager.FileServer;
-using FreeFile.DownloadManager.UserServer;
+﻿using DownloadManager.FileServer;
+using DownloadManager.UserServer;
 using System;
 using System.Collections.Generic;
 using System.Linq;

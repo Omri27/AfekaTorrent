@@ -10,7 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Administration.Models;
 using System.Web.Security;
-using FreeFile.DownloadManager.UserServer;
+using DownloadManager.UserServer;
 
 namespace Administration.Controllers
 {
