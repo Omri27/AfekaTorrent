@@ -85,7 +85,7 @@
     <Compile Include="EF\File.cs">
       <DependentUpon>AfekaTorrent.tt</DependentUpon>
     </Compile>
-    <Compile Include="EF\FreeFilesEntitiesContext.cs" />
+    <Compile Include="EF\EntitiesContext.cs" />
     <Compile Include="EF\Peer.cs">
       <DependentUpon>AfekaTorrent.tt</DependentUpon>
     </Compile>

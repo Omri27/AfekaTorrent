@@ -5,8 +5,8 @@ namespace DownloadManager
 {
     public static class Config
     {
-        const string FreeFileLocalHostNameKey = "FreeFileLocalHostName";
-        const string FreeFileLocalPortKey = "FreeFileLocalPort";
+        const string LocalHostNameKey = "AfekaTorrentLocalHostName";
+        const string LocalPortKey = "AfekaTorrentLocalPort";
         const string SharedFolderNameKey = "SharedFolderName ";
 
         public static string LocalHostyName
@@ -14,12 +14,12 @@ namespace DownloadManager
             get
             {
                 //var localHostName = Registry.CurrentUser.GetValue(FreeFileLocalHostNameKey);
-                var localHostName = Registry.CurrentUser.GetValue(FreeFileLocalHostNameKey);
+                var localHostName = Registry.CurrentUser.GetValue(LocalHostNameKey);
                 string hostname = string.Empty;
                 if (localHostName == null)
                 {
-                    hostname = "FreeFile" + Guid.NewGuid().ToString().Replace("-", "");
-                    Registry.CurrentUser.SetValue(FreeFileLocalHostNameKey, hostname);
+                    hostname = Guid.NewGuid().ToString().Replace("-", "");
+                    Registry.CurrentUser.SetValue(LocalHostNameKey, hostname);
                 }
                 else
                 {
@@ -52,11 +52,11 @@ namespace DownloadManager
         {
             get
             {
-                var localPort = Registry.CurrentUser.GetValue(FreeFileLocalPortKey);
+                var localPort = Registry.CurrentUser.GetValue(LocalPortKey);
                 int port = 20388;
                 if (localPort == null)
                 {
-                    Registry.CurrentUser.SetValue(FreeFileLocalPortKey, port);
+                    Registry.CurrentUser.SetValue(LocalPortKey, port);
                 }
                 return port;
             }

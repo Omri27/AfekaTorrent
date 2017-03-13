@@ -7,15 +7,15 @@ namespace ServerConsole.Repository
 {
     class UserRepository : IUserRepository
     {
-        private FreeFilesEntitiesContext _freeFilesObjectContext;
+        private EntitiesContext _objectContext;
         public UserRepository(IUnitOfWork unitOfWork)
         {
 
-            _freeFilesObjectContext = unitOfWork as FreeFilesEntitiesContext;
+            _objectContext = unitOfWork as EntitiesContext;
         }
         public void AddUser(EF.User user)
         {
-            _freeFilesObjectContext.Users.AddObject(user);
+            _objectContext.Users.AddObject(user);
         }
 
         public  EF.User Login(string userName, string password)
@@ -26,8 +26,8 @@ namespace ServerConsole.Repository
             if (efUser != null && !efUser.IsActive && efUser.IsEnabled)
             {
                 efUser.IsActive = true;
-                _freeFilesObjectContext.Users.ApplyCurrentValues(efUser);
-                _freeFilesObjectContext.SaveChanges();
+                _objectContext.Users.ApplyCurrentValues(efUser);
+                _objectContext.SaveChanges();
             }
          
             return efUser;
@@ -36,14 +36,14 @@ namespace ServerConsole.Repository
 
         public void Logout(Guid userId)
         {
-            EF.User efUser = _freeFilesObjectContext.Users.Where(o => o.UserID == userId).FirstOrDefault();
+            EF.User efUser = _objectContext.Users.Where(o => o.UserID == userId).FirstOrDefault();
             efUser.IsActive = false;
-            _freeFilesObjectContext.Users.ApplyCurrentValues(efUser);
-            _freeFilesObjectContext.SaveChanges();
+            _objectContext.Users.ApplyCurrentValues(efUser);
+            _objectContext.SaveChanges();
         }
         public List<EF.User> GetAllUsers()
         {
-            var userList = from users in _freeFilesObjectContext.Users
+            var userList = from users in _objectContext.Users
 
                            select new { users };
             List<EF.User> List = new List<EF.User>();
@@ -65,44 +65,44 @@ namespace ServerConsole.Repository
 
         public void DeleteUser(Guid UserID)
         {
-            EF.User user = _freeFilesObjectContext.Users.Where(o => o.UserID == UserID).FirstOrDefault();
-            _freeFilesObjectContext.Users.DeleteObject(user);
-            _freeFilesObjectContext.SaveChanges();
+            EF.User user = _objectContext.Users.Where(o => o.UserID == UserID).FirstOrDefault();
+            _objectContext.Users.DeleteObject(user);
+            _objectContext.SaveChanges();
         }
 
         public EF.User GetUser(Guid UserID)
         {
-            return  _freeFilesObjectContext.Users.Where(o => o.UserID == UserID).FirstOrDefault();
+            return  _objectContext.Users.Where(o => o.UserID == UserID).FirstOrDefault();
         }
 
         public void EditUser(Entities.User user)
         {
-            EF.User efUser = _freeFilesObjectContext.Users.Where(o => o.UserID == user.UserID).FirstOrDefault();
+            EF.User efUser = _objectContext.Users.Where(o => o.UserID == user.UserID).FirstOrDefault();
             efUser.UserName = user.UserName;
             efUser.Password = user.Password;
             efUser.IsEnabled = user.IsEnabled;
-            _freeFilesObjectContext.Users.ApplyCurrentValues(efUser);
-            _freeFilesObjectContext.SaveChanges();
+            _objectContext.Users.ApplyCurrentValues(efUser);
+            _objectContext.SaveChanges();
         }
 
         public int GetUsersCount()
         {
-            return _freeFilesObjectContext.Users.Count();
+            return _objectContext.Users.Count();
         }
 
         public void UpdateFolders(string download, string shared,Guid UserId)
         {
-            EF.User efUser = _freeFilesObjectContext.Users.Where(o => o.UserID == UserId).FirstOrDefault();
+            EF.User efUser = _objectContext.Users.Where(o => o.UserID == UserId).FirstOrDefault();
             efUser.SharedFolder = shared;
             efUser.DownloadFolder = download;
-            _freeFilesObjectContext.Users.Attach(efUser);
-            _freeFilesObjectContext.SaveChanges();
+            _objectContext.Users.Attach(efUser);
+            _objectContext.SaveChanges();
 
         }
 
         public int GetActiveUsersCount()
         {
-            return _freeFilesObjectContext.Users.Where(x  => x.IsActive).Count();
+            return _objectContext.Users.Where(x  => x.IsActive).Count();
         }
     }
 }

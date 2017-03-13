@@ -9,13 +9,13 @@ namespace ServerConsole.WCFServices
     [ServiceContract]
     public class UserService : IUserService
     {
-        private FreeFilesEntitiesContext _freeFilesObjectContext = new FreeFilesEntitiesContext();
+        private EntitiesContext _objectContext = new EntitiesContext();
 
         [OperationContract]
         public void AddUser(Entities.User user)
         {
             user.UserID = Guid.NewGuid();
-            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as IUnitOfWork);
+            UserRepository userRepository = new UserRepository(_objectContext as IUnitOfWork);
 
             userRepository.AddUser(externalUserToEFUser(user));
 
@@ -26,21 +26,21 @@ namespace ServerConsole.WCFServices
 
         public Entities.User Login(string userName, string password)
         {
-            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as IUnitOfWork);
+            UserRepository userRepository = new UserRepository(_objectContext as IUnitOfWork);
             return internalSingleUserToEntityUser(userRepository.Login(userName, password));
         }
 
         [OperationContract]
         public List<Entities.User> GetAllUsers()
         {
-            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as IUnitOfWork);
+            UserRepository userRepository = new UserRepository(_objectContext as IUnitOfWork);
             return internalUserToEntityUser(userRepository.GetAllUsers());
         }
 
 
         public void SaveUser()
         {
-            _freeFilesObjectContext.Save();
+            _objectContext.Save();
         }
 
         private EF.User externalUserToEFUser(Entities.User user)
@@ -98,14 +98,14 @@ namespace ServerConsole.WCFServices
         [OperationContract]
         public void DeleteUser(Guid UserID)
         {
-            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as IUnitOfWork);
+            UserRepository userRepository = new UserRepository(_objectContext as IUnitOfWork);
             userRepository.DeleteUser(UserID);
         }
 
         [OperationContract]
         public Entities.User GetUser(Guid UserID)
         {
-            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as IUnitOfWork);
+            UserRepository userRepository = new UserRepository(_objectContext as IUnitOfWork);
             EF.User user =  userRepository.GetUser(UserID);
             return internalSingleUserToEntityUser(user);
 
@@ -113,33 +113,33 @@ namespace ServerConsole.WCFServices
         [OperationContract]
         public void EditUser(Entities.User user)
         {
-            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as IUnitOfWork);
+            UserRepository userRepository = new UserRepository(_objectContext as IUnitOfWork);
             userRepository.EditUser(user);
         }
 
         [OperationContract]
         public int GetUsersCount()
         {
-            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as IUnitOfWork);
+            UserRepository userRepository = new UserRepository(_objectContext as IUnitOfWork);
             return  userRepository.GetUsersCount();
         }
         [OperationContract]
         public void UpdateFolders(string download, string shared, Guid UserId)
         {
-            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as IUnitOfWork);
+            UserRepository userRepository = new UserRepository(_objectContext as IUnitOfWork);
             userRepository.UpdateFolders(download, shared, UserId);
         }
         [OperationContract]
         public void Logout(Guid userId)
         {
-            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as IUnitOfWork);
+            UserRepository userRepository = new UserRepository(_objectContext as IUnitOfWork);
             userRepository.Logout(userId);
         }
 
         [OperationContract]
         public int GetActiveUsersCount()
         {
-            UserRepository userRepository = new UserRepository(_freeFilesObjectContext as IUnitOfWork);
+            UserRepository userRepository = new UserRepository(_objectContext as IUnitOfWork);
             return userRepository.GetActiveUsersCount();
         }
     }

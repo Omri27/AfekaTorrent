@@ -3,12 +3,12 @@ using System.Data.Objects;
 
 namespace ServerConsole.EF
 {
-    class FreeFilesEntitiesContext:ObjectContext,IUnitOfWork
+    class EntitiesContext:ObjectContext,IUnitOfWork
     {
         private ObjectSet<EF.File> _files;
         private ObjectSet<EF.Peer> _peers;
         private ObjectSet<EF.User> _users;
-        public FreeFilesEntitiesContext()
+        public EntitiesContext()
             : base("name=AfekaTorrentEntities", "AfekaTorrentEntities")
         {
             _files = CreateObjectSet<EF.File>();

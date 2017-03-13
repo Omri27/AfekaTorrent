@@ -9,11 +9,11 @@ namespace ServerConsole.WCFServices
     [ServiceContract]
     public class FilesService : IFileService
     {
-        private FreeFilesEntitiesContext _freeFilesObjectContext=new FreeFilesEntitiesContext();
+        private EntitiesContext _objectContext=new EntitiesContext();
         [OperationContract]
         public void AddFiles(List<Entities.File> FilesList,Entities.Peer peer)
         {
-            FileRepository fileRepository = new FileRepository(_freeFilesObjectContext as IUnitOfWork);
+            FileRepository fileRepository = new FileRepository(_objectContext as IUnitOfWork);
             this.AddPeer(externalPeerToEFPeer(peer));
             fileRepository.AddFiles(externalFileToEFFile(FilesList));
             
@@ -22,20 +22,20 @@ namespace ServerConsole.WCFServices
         [OperationContract]
         public void AddPeer(EF.Peer Peer)
         {
-            FileRepository fileRepository = new FileRepository(_freeFilesObjectContext as IUnitOfWork);
+            FileRepository fileRepository = new FileRepository(_objectContext as IUnitOfWork);
             fileRepository.AddPeer(Peer);
 
         }
         [OperationContract]
         public List<Entities.File> SearchAvaiableFiles(string fileName, Guid userId)
         {
-            FileRepository fileRepository = new FileRepository(_freeFilesObjectContext as IUnitOfWork);
+            FileRepository fileRepository = new FileRepository(_objectContext as IUnitOfWork);
             return internalFileToEntityFile(fileRepository.SearchAvaiableFiles(fileName,userId));
         }
         [OperationContract]
         public List<Entities.File> GetAllFiles()
         {
-            FileRepository fileRepository = new FileRepository(_freeFilesObjectContext as IUnitOfWork);
+            FileRepository fileRepository = new FileRepository(_objectContext as IUnitOfWork);
             return internalFileToEntityFile(fileRepository.GetAllFiles());
         }
 
@@ -43,7 +43,7 @@ namespace ServerConsole.WCFServices
 
         public void SaveFile()
         {
-            _freeFilesObjectContext.Save();
+            _objectContext.Save();
         }
 
         private EF.Peer externalPeerToEFPeer(Entities.Peer peer)
