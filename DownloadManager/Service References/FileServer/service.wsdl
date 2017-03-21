@@ -103,9 +103,9 @@
   </wsdl:binding>
   <wsdl:service name="FilesService">
     <wsdl:port name="NetTcpBinding_FilesService" binding="tns:NetTcpBinding_FilesService">
-      <soap12:address location="net.tcp://10.100.102.8/files/" />
+      <soap12:address location="net.tcp://192.168.43.112/files/" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://10.100.102.8/files/</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.43.112/files/</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

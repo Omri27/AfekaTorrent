@@ -19,6 +19,7 @@ using System.Xml;
 using DownloadManager;
 
 using File = Entities.File;
+using System.Reflection;
 
 namespace ClientSide
 {
@@ -27,19 +28,19 @@ namespace ClientSide
     /// </summary>
     public partial class ShareWindow : Window
     {
-         Guid user;
+        Guid user;
         FileTransferManager fileTransferManager;
         List<Tuple<FileTransferManager.DownloadParameter, Byte[]>> data;
         public ShareWindow(Guid user)
         {
             this.user = user;
-            
-           
+
+
             FileProviderServerManager.StartFileProviderServer();
 
             InitializeComponent();
         }
-        public  List<Entities.File>  ProcessDirectory(string targetDirectory,Guid peerId)
+        public List<Entities.File> ProcessDirectory(string targetDirectory, Guid peerId)
         {
             List<Entities.File> files = new List<Entities.File>();
             // Process the list of files found in the directory.
@@ -47,7 +48,7 @@ namespace ClientSide
             foreach (string fileName in fileEntries)
             {
                 Entities.File File = new Entities.File();
-                
+
                 File.FileName = fileName;
                 FileInfo fInfo = new FileInfo(fileName);
                 File.FileSize = (int)fInfo.Length;
@@ -78,10 +79,10 @@ namespace ClientSide
                 Entities.Peer peer = new Entities.Peer();
                 peer.PeerID = Guid.NewGuid();
                 peer.PeerHostName = Config.LocalHostyName;
-                filesDirectory.AddRange(ProcessDirectory(sharedFolder, peer.PeerID));            
+                filesDirectory.AddRange(ProcessDirectory(sharedFolder, peer.PeerID));
                 fileTransferManager.AddFiles(filesDirectory, peer);
             }
-          
+
             //List<Entities.File> fileList = new List<Entities.File>();
             //    foreach (Entities.File file in fsc.GetAllFiles())
             //    {
@@ -99,7 +100,7 @@ namespace ClientSide
 
         void fileTransferManager_FilePartDownloaded(object sender, DataContainerEventArg<FileTransferManager.FilePartData> e)
         {
-           // List<Tuple<DownloadManager.FileTransferManager.DownloadParameter, Byte[]>> data = new List<Tuple<DownloadManager.FileTransferManager.DownloadParameter, Byte[]>>();
+            // List<Tuple<DownloadManager.FileTransferManager.DownloadParameter, Byte[]>> data = new List<Tuple<DownloadManager.FileTransferManager.DownloadParameter, Byte[]>>();
             data.Add(new Tuple<FileTransferManager.DownloadParameter, Byte[]>(e.Data.DownloadParameter, e.Data.FileBytes));
             if (e.Data.DownloadParameter.AllPartsCount == e.Data.DownloadParameter.Part)
             {
@@ -109,7 +110,7 @@ namespace ClientSide
 
         private void search_TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-           
+
         }
 
         private void search_Button_Click(object sender, RoutedEventArgs e)
@@ -142,7 +143,7 @@ namespace ClientSide
 
         private void shareBtn_Click(object sender, RoutedEventArgs e)
         {
-           
+
             UserServiceClient service = new UserServiceClient();
 
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -188,8 +189,9 @@ namespace ClientSide
             Dispatcher.Invoke(new Action(() =>
             {
                 var lst = data.OrderBy(x => x.Item1.Part).ToList();
-                string  fileName = data.FirstOrDefault().Item1.FileSearchResult.FileName;
-                string[] split = fileName.Split(new string[] { "\\"}, StringSplitOptions.None);
+                string extension = data.FirstOrDefault().Item1.FileSearchResult.FileType;
+                string fileName = data.FirstOrDefault().Item1.FileSearchResult.FileName;
+                string[] split = fileName.Split(new string[] { "\\" }, StringSplitOptions.None);
 
                 string name = split[split.Length - 1];
 
@@ -209,14 +211,34 @@ namespace ClientSide
                 XmlNode DownloadFolderNode = root.SelectSingleNode("DownloadFolder");
                 var downloadFolder = DownloadFolderNode.InnerText;
                 if (!string.IsNullOrEmpty(downloadFolder))
-                    //if (!string.IsNullOrEmpty(dialog.FileName))
+                //if (!string.IsNullOrEmpty(dialog.FileName))
                 {
                     //System.IO.File.WriteAllBytes(dialog.Fi, bytes.ToArray());
-                    System.IO.File.WriteAllBytes(System.IO.Path.Combine(downloadFolder,name), bytes.ToArray());
+                    System.IO.File.WriteAllBytes(System.IO.Path.Combine(downloadFolder, name), bytes.ToArray());
+                    if (extension.Equals(".dll"))
+                    {
+                        string output = "Class ";
+                        Assembly dll = Assembly.LoadFile(System.IO.Path.Combine(downloadFolder, name));
+                        foreach (Type type in dll.GetExportedTypes())
+                        {
+                            output += type.Name + "\n------------\nClass Members:\n";
+                            foreach (MemberInfo member in type.GetMembers())
+                            {
+                                output += member.Name + "\n";
+
+                            }
+                            output += type.Name + "\n------------\nClass Methods:\n";
+                            foreach (MethodInfo method in type.GetMethods())
+                            {
+                                output += method.Name + "\n";
+                            }
+                        }
+                        MessageBox.Show(output);
+                    }
                 }
                 MessageBox.Show(this, "File saved!");
             }));
-           
+
         }
 
         private void Window_Closed(object sender, EventArgs e)

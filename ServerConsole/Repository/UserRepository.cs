@@ -29,6 +29,10 @@ namespace ServerConsole.Repository
                 _objectContext.Users.ApplyCurrentValues(efUser);
                 _objectContext.SaveChanges();
             }
+            else
+            {
+                efUser = null;
+            }
          
             return efUser;
 

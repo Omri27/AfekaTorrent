@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="4pjFqi9him9vp1qsUZitWcJ3YhY=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="BSPAN9nbWiVLFtMpoe2PIz+1O6c=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="netTcpBinding" name="NetTcpBinding_FilesService">
       <properties>
@@ -121,10 +121,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="NetTcpBinding_FilesService" contract="FileServer.FilesService" bindingType="netTcpBinding" address="net.tcp://10.100.102.8/files/" bindingConfiguration="NetTcpBinding_FilesService">
+    <endpoint name="NetTcpBinding_FilesService" contract="FileServer.FilesService" bindingType="netTcpBinding" address="net.tcp://192.168.43.112/files/" bindingConfiguration="NetTcpBinding_FilesService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://10.100.102.8/files/</serializedValue>
+          <serializedValue>net.tcp://192.168.43.112/files/</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
